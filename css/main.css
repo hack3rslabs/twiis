@@ -48,10 +48,10 @@ section{padding:4rem 0}
 
 /* ── Buttons ─────────────────────────────────────────────── */
 .btn{display:inline-block;padding:.85rem 2rem;border-radius:6px;font-weight:600;font-size:.95rem;border:none;cursor:pointer;transition:var(--transition);text-align:center}
-.btn-primary{background:var(--primary);color:#000;box-shadow:0 0 24px var(--primary-glow)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 36px var(--primary-glow)}
+.btn-primary{background:var(--bg-dark);color:var(--primary);border:1px solid var(--primary);box-shadow:0 0 10px rgba(0,243,255,0.1)}
+.btn-primary:hover{box-shadow:0 0 20px var(--primary-glow);transform:translateY(-1px)}
 .btn-outline{background:transparent;color:var(--text-main);border:1px solid rgba(255,255,255,.2)}
-.btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary);background:rgba(0,243,255,0.05)}
 
 /* ── Navbar ──────────────────────────────────────────────── */
 nav{position:fixed;top:0;width:100%;z-index:1000;padding:1.5rem 0;transition:var(--transition)}

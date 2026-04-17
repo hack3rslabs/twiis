@@ -110,7 +110,29 @@
           <div class="form-step">
             <div class="step-title">4. Corporate Details</div>
             <div class="form-group"><input type="text" name="name" placeholder="Full Name" required maxlength="120"></div>
-            <div class="form-group"><input type="email" name="email" placeholder="Corporate Email" required maxlength="120"></div>
+            <div class="form-group">
+              <input type="email" id="corp-email" name="email" placeholder="Corporate Email" required maxlength="120">
+              <div id="email-error" style="color:#ff3366;font-size:0.85rem;margin-top:0.4rem;display:none;"><i class="fas fa-exclamation-triangle"></i> Please provide a valid corporate email address (public domains like Gmail/Yahoo are not accepted).</div>
+            </div>
+            
+            <div class="form-group" style="margin-bottom:1.5rem;">
+              <div style="display:flex;gap:0.5rem;">
+                <select name="country_code" style="width:120px;" required>
+                  <option value="+1">US (+1)</option>
+                  <option value="+44">UK (+44)</option>
+                  <option value="+91" selected>IN (+91)</option>
+                  <option value="+61">AU (+61)</option>
+                  <option value="+971">UAE (+971)</option>
+                  <option value="+65">SG (+65)</option>
+                  <option value="+49">DE (+49)</option>
+                  <option value="+33">FR (+33)</option>
+                  <option value="other">Other</option>
+                </select>
+                <input type="tel" name="phone" id="corp-phone" placeholder="Mobile Number" required maxlength="20" style="flex:1;">
+              </div>
+              <div id="phone-error" style="color:#ff3366;font-size:0.85rem;margin-top:0.4rem;display:none;"><i class="fas fa-exclamation-triangle"></i> Invalid mobile number length.</div>
+            </div>
+
             <div class="form-group"><input type="text" name="company" placeholder="Company / Organisation" maxlength="120"></div>
             <div class="form-group"><textarea name="message" placeholder="Briefly describe your compliance requirements (e.g. ISO 27001, HIPAA) or specific challenges…" required maxlength="2000"></textarea></div>
           </div>

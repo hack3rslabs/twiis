@@ -135,6 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const companyEl = form.querySelector('input[name="company"]');
       const serviceEl = form.querySelector('select[name="service"]');
       const msgEl  = form.querySelector('textarea[name="message"]');
+      const countryEl = form.querySelector('select[name="country_code"]');
+      const phoneEl = form.querySelector('input[name="phone"]');
+      const errorMsg = document.getElementById('email-error');
       
       // New Scoping Fields
       const infraEl = form.querySelector('input[name="infra"]:checked');
@@ -146,10 +149,57 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       
+      // Corporate Email Validation
+      const freeEmailDomains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'aol.com', 'icloud.com', 'protonmail.com', 'yandex.com', 'mail.com'];
+      const emailDomain = emailEl.value.split('@')[1]?.toLowerCase();
+      
+      if (freeEmailDomains.includes(emailDomain)) {
+        emailEl.style.borderColor = '#ff3366';
+        if (errorMsg) errorMsg.style.display = 'block';
+        return;
+      } else {
+        emailEl.style.borderColor = '';
+        if (errorMsg) errorMsg.style.display = 'none';
+      }
+      
+      // Phone Number Validation (Country-Based Length)
+      const phoneErrorMsg = document.getElementById('phone-error');
+      const countryCode = countryEl ? countryEl.value : '';
+      // Strip non-numeric characters for length check
+      const digitsOnly = phoneEl.value.replace(/\D/g, '');
+      
+      let expectedLength = 0;
+      let valid = true;
+
+      if (countryCode === '+91') { expectedLength = 10; valid = digitsOnly.length === 10; }
+      else if (countryCode === '+1') { expectedLength = 10; valid = digitsOnly.length === 10; }
+      else if (countryCode === '+44') { valid = (digitsOnly.length === 10 || digitsOnly.length === 11); }
+      else if (countryCode === '+61') { expectedLength = 9; valid = digitsOnly.length === 9; }
+      else if (countryCode === '+971') { expectedLength = 9; valid = digitsOnly.length === 9; }
+      else if (countryCode === '+65') { expectedLength = 8; valid = digitsOnly.length === 8; }
+      else if (countryCode === '+33') { expectedLength = 9; valid = digitsOnly.length === 9; }
+      else if (countryCode === '+49') { valid = (digitsOnly.length >= 10 && digitsOnly.length <= 11); }
+      else { valid = (digitsOnly.length >= 7 && digitsOnly.length <= 15); } // Generic fallback
+
+      if (!valid) {
+        phoneEl.style.borderColor = '#ff3366';
+        if (phoneErrorMsg) {
+          phoneErrorMsg.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Invalid number length for ${countryCode}.`;
+          if(expectedLength > 0) phoneErrorMsg.innerHTML += ` Required digits: ${expectedLength}.`;
+          phoneErrorMsg.style.display = 'block';
+        }
+        return;
+      } else {
+        phoneEl.style.borderColor = '';
+        if (phoneErrorMsg) phoneErrorMsg.style.display = 'none';
+      }
+      
       const safeName = document.createTextNode(nameEl.value).textContent;
       const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
       btn.textContent = 'Generating Secure Brief…';
+
+      const fullPhone = (countryEl && phoneEl) ? `${countryEl.value} ${phoneEl.value}` : 'N/A';
 
       // Send actual lead to inbox via FormSubmit AJAX
       fetch("https://formsubmit.co/ajax/help@twiis.in", {
@@ -162,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
               _subject: `New Enterprise Scoping Request: ${companyEl ? companyEl.value : 'General'}`,
               Name: nameEl.value,
               Email: emailEl.value,
+              Phone: fullPhone,
               Company: companyEl ? companyEl.value : 'N/A',
               Infrastructure: infraEl ? infraEl.value : 'N/A',
               Scale: scaleEl ? scaleEl.value : 'N/A',
