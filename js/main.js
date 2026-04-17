@@ -136,6 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const serviceEl = form.querySelector('select[name="service"]');
       const msgEl  = form.querySelector('textarea[name="message"]');
       
+      // New Scoping Fields
+      const infraEl = form.querySelector('input[name="infra"]:checked');
+      const scaleEl = form.querySelector('input[name="scale"]:checked');
+      
       if (!nameEl || !emailEl) return;
       if (nameEl.value.length > 120 || emailEl.value.length > 120) {
         alert('Input exceeds maximum allowed length.');
@@ -145,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const safeName = document.createTextNode(nameEl.value).textContent;
       const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
-      btn.textContent = 'Transmitting Secure Request…';
+      btn.textContent = 'Generating Secure Brief…';
 
       // Send actual lead to inbox via FormSubmit AJAX
       fetch("https://formsubmit.co/ajax/help@twiis.in", {
@@ -155,12 +159,14 @@ document.addEventListener('DOMContentLoaded', () => {
               'Accept': 'application/json'
           },
           body: JSON.stringify({
-              _subject: `New Enterprise Lead: ${serviceEl ? serviceEl.value : 'General'}`,
+              _subject: `New Enterprise Scoping Request: ${companyEl ? companyEl.value : 'General'}`,
               Name: nameEl.value,
               Email: emailEl.value,
               Company: companyEl ? companyEl.value : 'N/A',
+              Infrastructure: infraEl ? infraEl.value : 'N/A',
+              Scale: scaleEl ? scaleEl.value : 'N/A',
               Service_Required: serviceEl ? serviceEl.value : 'N/A',
-              Message: msgEl ? msgEl.value : 'N/A'
+              Requirements_and_Compliance: msgEl ? msgEl.value : 'N/A'
           })
       })
       .then(response => response.json())
@@ -168,9 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
           form.innerHTML = `
             <div style="text-align:center;padding:2.5rem 1rem;">
               <i class="fas fa-check-circle" style="font-size:4rem;color:var(--primary);display:block;margin-bottom:1.5rem;"></i>
-              <h3 style="margin-bottom:.8rem;">Lead Successfully Captured</h3>
-              <p style="color:var(--text-muted);">Thank you, <strong>${safeName}</strong>. Our experts have been notified at help@twiis.in and will contact you within 2 corporate hours.</p>
-              <button onclick="location.reload()" class="btn btn-outline" style="margin-top:2rem;">Send Another Inquiry</button>
+              <h3 style="margin-bottom:.8rem;">Scoping Brief Transmitted</h3>
+              <p style="color:var(--text-muted);">Thank you, <strong>${safeName}</strong>. Your infrastructure details have been securely captured. Our engineers are generating your custom quotation and will contact you at your corporate email shortly.</p>
+              <button onclick="location.reload()" class="btn btn-outline" style="margin-top:2rem;">Start New Scoping</button>
             </div>`;
       })
       .catch(error => {

@@ -12,8 +12,8 @@ Options -Indexes
     Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
     Header set X-XSS-Protection "1; mode=block"
     Header set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
-    # Content Security Policy (allows fontawesome, google fonts, and inline styles/images)
-    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com; connect-src 'self';"
+    # Content Security Policy (allows fontawesome, google fonts, formsubmit API, and inline styles/images)
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com; connect-src 'self' https://formsubmit.co;"
 </IfModule>
 
 # ── Clean URLs (no .html extension) ──────────────────────────
