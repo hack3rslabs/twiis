@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Active Directory Security | Twiis Innovations — Identity & IAM Hardening</title>
+  <meta name="description" content="Twiis hardens your Active Directory and Azure AD (Entra ID) infrastructure — eliminating misconfigurations, detecting lateral movement, and enforcing zero-trust identity policies across your enterprise.">
+  <meta name="keywords" content="Active Directory security, Azure AD security, IAM, identity security, lateral movement detection, AD hardening, zero trust identity, Twiis">
+  <link rel="canonical" href="https://twiis.in/services/ad-security">
+  <meta property="og:title" content="Active Directory Security | Twiis Innovations">
+  <meta property="og:url" content="https://twiis.in/services/ad-security">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+<canvas id="canvas-bg"></canvas>
+<site-header></site-header>
+
+<section class="page-hero global-section">
+  <div class="container">
+    <div class="page-hero-grid">
+      <div class="reveal">
+        <h1><span class="gradient-text">Active Directory</span><br>Security &amp; IAM Hardening</h1>
+        <p>Your identity infrastructure is the master key to everything. Twiis audits, hardens, and continuously monitors your Active Directory and Azure AD environment — closing the gaps attackers use most.</p>
+        <a href="/contact" class="btn btn-primary">Request an AD Security Audit</a>
+      </div>
+      <div class="page-hero-img reveal">
+        <img src="/images/ad_security.png" alt="Active Directory Security">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div style="max-width:840px;" class="reveal">
+      <h2 style="font-size:2rem;margin-bottom:1.2rem;">Why Active Directory Is Every Attacker's Primary Target</h2>
+      <p style="color:var(--text-muted);font-size:1.1rem;line-height:1.9;">Active Directory is the backbone of identity and access in 90% of enterprise networks. It controls who can access what — which makes it the most targeted asset in any organization. Misconfigurations, over-privileged accounts, weak password policies, and unmonitored service accounts create a perfect storm for lateral movement, privilege escalation, and ransomware deployment. Twiis brings deep AD expertise to systematically eliminate these risks and enforce a zero-trust identity posture.</p>
+    </div>
+  </div>
+</section>
+
+<section class="global-section">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2 style="color:#fff;">Key Capabilities</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal"><i class="fas fa-microscope"></i><h4>AD Security Assessment</h4><p>Comprehensive audit of your AD/Azure AD environment using BloodHound, PingCastle, and custom tooling to map every attack path and privilege escalation vector.</p></div>
+      <div class="feature-card reveal"><i class="fas fa-user-lock"></i><h4>Privileged Access Hardening</h4><p>Elimination of over-privileged accounts, enforcement of the principle of least privilege, and implementation of Protected Users and tiering models.</p></div>
+      <div class="feature-card reveal"><i class="fas fa-running"></i><h4>Lateral Movement Detection</h4><p>Continuous monitoring for Pass-the-Hash, Pass-the-Ticket, Kerberoasting, and DCSync attacks — with real-time alerting and automated containment.</p></div>
+      <div class="feature-card reveal"><i class="fas fa-key"></i><h4>MFA &amp; Conditional Access</h4><p>Deployment and enforcement of MFA across all identity touchpoints, with risk-based conditional access policies via Microsoft Entra ID (Azure AD).</p></div>
+      <div class="feature-card reveal"><i class="fas fa-sitemap"></i><h4>Group Policy &amp; GPO Hardening</h4><p>Review and remediation of Group Policy Objects to eliminate misconfigurations that grant unintended access, execute malicious scripts, or weaken security baselines.</p></div>
+      <div class="feature-card reveal"><i class="fas fa-chart-line"></i><h4>Continuous AD Monitoring</h4><p>24/7 SIEM integration with custom AD-specific detection rules — alerting on suspicious logon patterns, account creation, group membership changes, and replication anomalies.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title reveal">
+      <h2>Attack Vectors We Eliminate</h2>
+    </div>
+    <div class="stats-grid" style="margin-top:2rem;">
+      <div class="stat-item reveal"><i class="fas fa-skull-crossbones" style="font-size:2rem;color:var(--primary);display:block;margin-bottom:.7rem;"></i><h4 style="font-size:1rem;">Kerberoasting</h4><p>Service account ticket extraction and offline cracking</p></div>
+      <div class="stat-item reveal"><i class="fas fa-ghost" style="font-size:2rem;color:var(--primary);display:block;margin-bottom:.7rem;"></i><h4 style="font-size:1rem;">Pass-the-Hash</h4><p>Credential hash relay for unauthorized access</p></div>
+      <div class="stat-item reveal"><i class="fas fa-crown" style="font-size:2rem;color:var(--primary);display:block;margin-bottom:.7rem;"></i><h4 style="font-size:1rem;">DCSync Attacks</h4><p>Domain controller replication abuse to dump hashes</p></div>
+      <div class="stat-item reveal"><i class="fas fa-door-open" style="font-size:2rem;color:var(--primary);display:block;margin-bottom:.7rem;"></i><h4 style="font-size:1rem;">Unconstrained Delegation</h4><p>Privilege abuse through misconfigured service trust</p></div>
+      <div class="stat-item reveal"><i class="fas fa-user-ninja" style="font-size:2rem;color:var(--primary);display:block;margin-bottom:.7rem;"></i><h4 style="font-size:1rem;">Shadow Admins</h4><p>Hidden privileged accounts invisible to standard audits</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="info-card reveal" style="max-width:840px;">
+      <h3><i class="fas fa-chart-line"></i> Business Value</h3>
+      <p>In ransomware incidents, attackers spend an average of 21 days moving laterally through Active Directory before deploying their payload. A hardened AD environment with continuous monitoring drastically reduces dwell time, contains blast radius, and prevents the privilege escalation that turns an initial foothold into a catastrophic network-wide compromise. Twiis AD Security is your last line of defense before the worst happens.</p>
+    </div>
+  </div>
+</section>
+
+<section class="global-section">
+  <div class="container">
+    <div class="cta-banner reveal">
+      <h2>Own Your Identity. Own Your Security.</h2>
+      <p>Book a free Active Directory assessment — we'll identify your critical attack paths within 48 hours.</p>
+      <a href="/contact" class="btn btn-primary">Request Free AD Audit</a>
+    </div>
+  </div>
+</section>
+
+<site-footer></site-footer>
+<script src="/js/main.js"></script>
+</body>
+</html>
