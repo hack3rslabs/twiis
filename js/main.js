@@ -63,7 +63,6 @@ class SiteFooter extends HTMLElement {
             <ul>
               <li><a href="/privacy">Privacy Policy</a></li>
               <li><a href="/terms">Terms of Service</a></li>
-              <li><a href="/helpdesk">Helpdesk & Support</a></li>
               <li><a href="/security-statement">Security Statement</a></li>
               <li><a href="/ethics">Ethics & Conduct</a></li>
             </ul>
@@ -73,10 +72,7 @@ class SiteFooter extends HTMLElement {
           <p>&copy; 2026 Twiis Innovations OPC Pvt. Ltd. All rights reserved. Registered Startup India Company.</p>
         </div>
       </div>
-    </footer>
-    <a href="/helpdesk" class="support-fab" title="Create Support Ticket" aria-label="Support Ticket">
-      <i class="fas fa-headset"></i>
-    </a>`;
+    </footer>`;
   }
 }
 
