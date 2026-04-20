@@ -11,10 +11,11 @@ class SiteHeader extends HTMLElement {
         <ul class="nav-links" id="nav-links">
           <li><a href="/">Home</a></li>
           <li><a href="/services">Services</a></li>
-          <li><a href="/clients">Clients</a></li>
+          <li><a href="/clients">Ecosystem</a></li>
           <li><a href="/technologies">Technologies</a></li>
           <li><a href="/partners">Partners</a></li>
           <li><a href="/about">About</a></li>
+          <li><a href="https://twiis.in/helpdesk/">Help</a></li>
           <li><a href="/contact" class="btn btn-primary nav-cta">Get Secured</a></li>
         </ul>
       </div>
@@ -54,7 +55,7 @@ class SiteFooter extends HTMLElement {
             <ul>
               <li><a href="/services/software-development">Software Development</a></li>
               <li><a href="/services/remote-it-support">Remote IT Support</a></li>
-              <li><a href="/clients">Sectors &amp; Clients</a></li>
+              <li><a href="/clients">Business Ecosystem</a></li>
               <li><a href="/partners">Partner Program</a></li>
             </ul>
           </div>
@@ -63,16 +64,16 @@ class SiteFooter extends HTMLElement {
             <ul>
               <li><a href="/privacy">Privacy Policy</a></li>
               <li><a href="/terms">Terms of Service</a></li>
+              <li><a href="https://twiis.in/helpdesk/">Helpdesk & Support</a></li>
               <li><a href="/security-statement">Security Statement</a></li>
               <li><a href="/ethics">Ethics & Conduct</a></li>
             </ul>
           </div>
         </div>
-        <div class="footer-bottom">
-          <p>&copy; 2026 Twiis Innovations OPC Pvt. Ltd. All rights reserved. Registered Startup India Company.</p>
         </div>
       </div>
-    </footer>`;
+    </footer>
+    </a>`;
   }
 }
 
