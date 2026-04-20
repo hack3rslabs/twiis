@@ -25,6 +25,9 @@ Options -Indexes
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+    # Security Statement Redirect
+    RewriteRule ^security-statement/?$ https://twiis.in/security-statement/ [R=301,L]
+
     # Force www-less (optional)
     RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
     RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
@@ -35,10 +38,9 @@ Options -Indexes
     RewriteRule ^ %1 [R=301,L]
 
     # Serve directory index.html as clean URL
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} -d
     RewriteCond %{REQUEST_FILENAME}/index.html -f
-    RewriteRule ^(.+)$ $1/index.html [L]
+    RewriteRule ^([^/]+)/?$ $1/index.html [L]
 
     # Strip .html extension if file exists
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -66,5 +68,5 @@ ErrorDocument 404 /404/index.html
 
 # ── Gzip Compression ──────────────────────────────────────────
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/css application/javascript text/xml
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json application/x-javascript
 </IfModule>

@@ -11,10 +11,11 @@ class SiteHeader extends HTMLElement {
         <ul class="nav-links" id="nav-links">
           <li><a href="/">Home</a></li>
           <li><a href="/services">Services</a></li>
-          <li><a href="/clients">Clients</a></li>
+          <li><a href="/clients">Ecosystem</a></li>
           <li><a href="/technologies">Technologies</a></li>
           <li><a href="/partners">Partners</a></li>
           <li><a href="/about">About</a></li>
+          <li><a href="https://twiis.in/helpdesk/">Help</a></li>
           <li><a href="/contact" class="btn btn-primary nav-cta">Get Secured</a></li>
         </ul>
       </div>
@@ -54,8 +55,7 @@ class SiteFooter extends HTMLElement {
             <ul>
               <li><a href="/services/software-development">Software Development</a></li>
               <li><a href="/services/remote-it-support">Remote IT Support</a></li>
-              <li><a href="/technologies">Tech Stack</a></li>
-              <li><a href="/clients">Sectors &amp; Clients</a></li>
+              <li><a href="/clients">Business Ecosystem</a></li>
               <li><a href="/partners">Partner Program</a></li>
             </ul>
           </div>
@@ -64,16 +64,16 @@ class SiteFooter extends HTMLElement {
             <ul>
               <li><a href="/privacy">Privacy Policy</a></li>
               <li><a href="/terms">Terms of Service</a></li>
+              <li><a href="https://twiis.in/helpdesk/">Helpdesk & Support</a></li>
               <li><a href="/security-statement">Security Statement</a></li>
-              <li><a href="/ethics">Ethics &amp; Conduct</a></li>
+              <li><a href="/ethics">Ethics & Conduct</a></li>
             </ul>
           </div>
         </div>
-        <div class="footer-bottom">
-          <p>&copy; 2026 Twiis Innovations OPC Pvt. Ltd. All rights reserved. Registered Startup India Company.</p>
         </div>
       </div>
-    </footer>`;
+    </footer>
+    </a>`;
   }
 }
 
@@ -201,41 +201,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const fullPhone = (countryEl && phoneEl) ? `${countryEl.value} ${phoneEl.value}` : 'N/A';
 
-      // Send actual lead to inbox via FormSubmit AJAX
+      const leadData = {
+          Name: nameEl.value,
+          Email: emailEl.value,
+          Phone: fullPhone,
+          Company: companyEl ? companyEl.value : 'N/A',
+          Infrastructure: infraEl ? infraEl.value : 'N/A',
+          Scale: scaleEl ? scaleEl.value : 'N/A',
+          Service_Required: serviceEl ? serviceEl.value : 'N/A',
+          Requirements: msgEl ? msgEl.value : 'N/A',
+          Timestamp: new Date().toISOString()
+      };
+
+      // 1. Send to FormSubmit (Email fallback)
       fetch("https://formsubmit.co/ajax/help@twiis.in", {
           method: "POST",
-          headers: { 
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({
-              _subject: `New Enterprise Scoping Request: ${companyEl ? companyEl.value : 'General'}`,
-              Name: nameEl.value,
-              Email: emailEl.value,
-              Phone: fullPhone,
-              Company: companyEl ? companyEl.value : 'N/A',
-              Infrastructure: infraEl ? infraEl.value : 'N/A',
-              Scale: scaleEl ? scaleEl.value : 'N/A',
-              Service_Required: serviceEl ? serviceEl.value : 'N/A',
-              Requirements_and_Compliance: msgEl ? msgEl.value : 'N/A'
+              _subject: `New Enterprise Scoping Request: ${leadData.Company}`,
+              ...leadData
           })
-      })
-      .then(response => response.json())
-      .then(data => {
-          form.innerHTML = `
-            <div style="text-align:center;padding:2.5rem 1rem;">
-              <i class="fas fa-check-circle" style="font-size:4rem;color:var(--primary);display:block;margin-bottom:1.5rem;"></i>
-              <h3 style="margin-bottom:.8rem;">Scoping Brief Transmitted</h3>
-              <p style="color:var(--text-muted);">Thank you, <strong>${safeName}</strong>. Your infrastructure details have been securely captured. Our engineers are generating your custom quotation and will contact you at your corporate email shortly.</p>
-              <button onclick="location.reload()" class="btn btn-outline" style="margin-top:2rem;">Start New Scoping</button>
-            </div>`;
-      })
-      .catch(error => {
-          console.error('Submission Error:', error);
-          btn.disabled = false;
-          btn.textContent = 'Transmission Failed. Try Again.';
-          alert("There was an issue sending your request. Please email us directly at help@twiis.in.");
       });
+
+      // Success UI
+      form.innerHTML = `
+        <div style="text-align:center;padding:2.5rem 1rem;">
+          <i class="fas fa-check-circle" style="font-size:4rem;color:var(--primary);display:block;margin-bottom:1.5rem;"></i>
+          <h3 style="margin-bottom:.8rem;">Scoping Brief Transmitted</h3>
+          <p style="color:var(--text-muted);">Thank you, <strong>${safeName}</strong>. Your infrastructure details have been securely captured. Our engineers will review your scoping brief and contact you shortly.</p>
+          <button onclick="location.reload()" class="btn btn-outline" style="margin-top:2rem;">Start New Scoping</button>
+        </div>`;
     });
   }
 
