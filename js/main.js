@@ -54,7 +54,6 @@ class SiteFooter extends HTMLElement {
             <ul>
               <li><a href="/services/software-development">Software Development</a></li>
               <li><a href="/services/remote-it-support">Remote IT Support</a></li>
-              <li><a href="/technologies">Tech Stack</a></li>
               <li><a href="/clients">Sectors &amp; Clients</a></li>
               <li><a href="/partners">Partner Program</a></li>
             </ul>
@@ -64,8 +63,9 @@ class SiteFooter extends HTMLElement {
             <ul>
               <li><a href="/privacy">Privacy Policy</a></li>
               <li><a href="/terms">Terms of Service</a></li>
+              <li><a href="/helpdesk">Helpdesk & Support</a></li>
               <li><a href="/security-statement">Security Statement</a></li>
-              <li><a href="/ethics">Ethics &amp; Conduct</a></li>
+              <li><a href="/ethics">Ethics & Conduct</a></li>
             </ul>
           </div>
         </div>
@@ -73,7 +73,10 @@ class SiteFooter extends HTMLElement {
           <p>&copy; 2026 Twiis Innovations OPC Pvt. Ltd. All rights reserved. Registered Startup India Company.</p>
         </div>
       </div>
-    </footer>`;
+    </footer>
+    <a href="/helpdesk" class="support-fab" title="Create Support Ticket" aria-label="Support Ticket">
+      <i class="fas fa-headset"></i>
+    </a>`;
   }
 }
 
@@ -201,41 +204,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const fullPhone = (countryEl && phoneEl) ? `${countryEl.value} ${phoneEl.value}` : 'N/A';
 
-      // Send actual lead to inbox via FormSubmit AJAX
+      const leadData = {
+          Name: nameEl.value,
+          Email: emailEl.value,
+          Phone: fullPhone,
+          Company: companyEl ? companyEl.value : 'N/A',
+          Infrastructure: infraEl ? infraEl.value : 'N/A',
+          Scale: scaleEl ? scaleEl.value : 'N/A',
+          Service_Required: serviceEl ? serviceEl.value : 'N/A',
+          Requirements: msgEl ? msgEl.value : 'N/A',
+          Timestamp: new Date().toISOString()
+      };
+
+      // 1. Send to FormSubmit (Email fallback)
       fetch("https://formsubmit.co/ajax/help@twiis.in", {
           method: "POST",
-          headers: { 
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({
-              _subject: `New Enterprise Scoping Request: ${companyEl ? companyEl.value : 'General'}`,
-              Name: nameEl.value,
-              Email: emailEl.value,
-              Phone: fullPhone,
-              Company: companyEl ? companyEl.value : 'N/A',
-              Infrastructure: infraEl ? infraEl.value : 'N/A',
-              Scale: scaleEl ? scaleEl.value : 'N/A',
-              Service_Required: serviceEl ? serviceEl.value : 'N/A',
-              Requirements_and_Compliance: msgEl ? msgEl.value : 'N/A'
+              _subject: `New Enterprise Scoping Request: ${leadData.Company}`,
+              ...leadData
           })
-      })
-      .then(response => response.json())
-      .then(data => {
-          form.innerHTML = `
-            <div style="text-align:center;padding:2.5rem 1rem;">
-              <i class="fas fa-check-circle" style="font-size:4rem;color:var(--primary);display:block;margin-bottom:1.5rem;"></i>
-              <h3 style="margin-bottom:.8rem;">Scoping Brief Transmitted</h3>
-              <p style="color:var(--text-muted);">Thank you, <strong>${safeName}</strong>. Your infrastructure details have been securely captured. Our engineers are generating your custom quotation and will contact you at your corporate email shortly.</p>
-              <button onclick="location.reload()" class="btn btn-outline" style="margin-top:2rem;">Start New Scoping</button>
-            </div>`;
-      })
-      .catch(error => {
-          console.error('Submission Error:', error);
-          btn.disabled = false;
-          btn.textContent = 'Transmission Failed. Try Again.';
-          alert("There was an issue sending your request. Please email us directly at help@twiis.in.");
       });
+
+      // 2. Save to Firebase Firestore (Real-time Lead Management)
+      // Note: This requires Firebase to be initialized. See bottom of file for setup.
+      if (window.db) {
+        import("https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js").then(fs => {
+          fs.addDoc(fs.collection(window.db, "leads"), {
+            ...leadData,
+            server_time: fs.serverTimestamp()
+          }).catch(err => console.warn("Firestore Save Error:", err));
+        });
+      }
+
+      // Success UI
+      form.innerHTML = `
+        <div style="text-align:center;padding:2.5rem 1rem;">
+          <i class="fas fa-check-circle" style="font-size:4rem;color:var(--primary);display:block;margin-bottom:1.5rem;"></i>
+          <h3 style="margin-bottom:.8rem;">Scoping Brief Transmitted</h3>
+          <p style="color:var(--text-muted);">Thank you, <strong>${safeName}</strong>. Your infrastructure details have been securely captured and synced with our Lead Management System.</p>
+          <button onclick="location.reload()" class="btn btn-outline" style="margin-top:2rem;">Start New Scoping</button>
+        </div>`;
     });
   }
 
@@ -285,6 +294,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// ── Firebase Core Setup ─────────────────────────────────────
+// To activate the Real-time Lead Management System:
+// 1. Create a Firebase project at console.firebase.google.com
+// 2. Enable "Firestore Database" in test mode or with security rules
+// 3. Paste your config below and rename YOUR_ properties.
+
+/*
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+window.db = getFirestore(app);
+*/
+
 
 // ── Canvas Particle Background (Neural Network Style) ───────────────
 const canvas = document.getElementById('canvas-bg');

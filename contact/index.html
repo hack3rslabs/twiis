@@ -25,128 +25,112 @@
 
 <section>
   <div class="container">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
+    <div class="contact-page-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
 
       <!-- Form -->
       <div class="reveal">
         <h2 style="margin-bottom:0.5rem;font-size:1.9rem;">Enterprise Scoping Request</h2>
-        <p style="color:var(--text-muted);margin-bottom:2rem;font-size:0.95rem;">Select your requirements below to generate an automated quotation brief.</p>
+        <p style="color:var(--text-muted);margin-bottom:2rem;font-size:0.95rem;">Select your requirements to generate a secure quotation brief.</p>
         
         <form id="contact-form" class="contact-form">
-          <!-- Step 1: Infrastructure -->
+          <!-- SECTION 1: Scope -->
           <div class="form-step">
-            <div class="step-title">1. Primary Infrastructure Environment</div>
+            <div class="step-title"><i class="fas fa-microchip"></i> Environment & Scale</div>
             <div class="radio-grid">
               <label class="radio-card">
-                <input type="radio" name="infra" value="Cloud Native" checked>
-                <div class="card-content">
-                  <i class="fas fa-cloud"></i>
-                  <span>Cloud Native</span>
-                </div>
+                <input type="radio" name="infra" value="Cloud" checked>
+                <div class="card-content"><i class="fas fa-cloud"></i><span>Cloud</span></div>
               </label>
               <label class="radio-card">
-                <input type="radio" name="infra" value="On-Premise">
-                <div class="card-content">
-                  <i class="fas fa-server"></i>
-                  <span>On-Premise</span>
-                </div>
+                <input type="radio" name="infra" value="On-Prem">
+                <div class="card-content"><i class="fas fa-server"></i><span>On-Prem</span></div>
               </label>
               <label class="radio-card">
                 <input type="radio" name="infra" value="Hybrid">
-                <div class="card-content">
-                  <i class="fas fa-network-wired"></i>
-                  <span>Hybrid</span>
-                </div>
+                <div class="card-content"><i class="fas fa-network-wired"></i><span>Hybrid</span></div>
               </label>
-            </div>
-          </div>
-
-          <!-- Step 2: Scale -->
-          <div class="form-step">
-            <div class="step-title">2. Organization Scale (Endpoints / Users)</div>
-            <div class="radio-grid">
-              <label class="radio-card">
-                <input type="radio" name="scale" value="1 - 50" checked>
-                <div class="card-content">
-                  <i class="fas fa-user"></i>
-                  <span>1 - 50</span>
-                </div>
-              </label>
-              <label class="radio-card">
-                <input type="radio" name="scale" value="51 - 250">
-                <div class="card-content">
-                  <i class="fas fa-users"></i>
-                  <span>51 - 250</span>
-                </div>
-              </label>
-              <label class="radio-card">
-                <input type="radio" name="scale" value="250+ Enterprise">
-                <div class="card-content">
-                  <i class="fas fa-building"></i>
-                  <span>250+</span>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <!-- Step 3: Service -->
-          <div class="form-step">
-            <div class="step-title">3. Primary Service Required</div>
-            <div class="form-group">
-              <select name="service" required>
-                <option value="">-- Select Service --</option>
-                <option value="VAPT & Penetration Testing">VAPT & Penetration Testing</option>
-                <option value="Endpoint Defense (EDR/XDR)">Endpoint Defense (EDR/XDR)</option>
-                <option value="Cloud Security Posture">Cloud Security Posture</option>
-                <option value="Active Directory Security">Active Directory Security</option>
-                <option value="Data Loss Prevention (DLP)">Data Loss Prevention (DLP)</option>
-                <option value="Remote IT Support">Remote IT Support</option>
-                <option value="General Security Audit">General Security Audit</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Step 4: Details -->
-          <div class="form-step">
-            <div class="step-title">4. Corporate Details</div>
-            <div class="form-group"><input type="text" name="name" placeholder="Full Name" required maxlength="120"></div>
-            <div class="form-group">
-              <input type="email" id="corp-email" name="email" placeholder="Corporate Email" required maxlength="120">
-              <div id="email-error" style="color:#ff3366;font-size:0.85rem;margin-top:0.4rem;display:none;"><i class="fas fa-exclamation-triangle"></i> Please provide a valid corporate email address (public domains like Gmail/Yahoo are not accepted).</div>
             </div>
             
-            <div class="form-group" style="margin-bottom:1.5rem;">
+            <div class="radio-grid" style="margin-top:0.75rem;">
+              <label class="radio-card">
+                <input type="radio" name="scale" value="1-50" checked>
+                <div class="card-content"><span>1-50 Users</span></div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="scale" value="51-250">
+                <div class="card-content"><span>51-250</span></div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="scale" value="250+">
+                <div class="card-content"><span>250+ Ent</span></div>
+              </label>
+            </div>
+          </div>
+ 
+          <!-- SECTION 2: Service -->
+          <div class="form-step">
+            <div class="step-title"><i class="fas fa-shield-alt"></i> Requirements</div>
+            <div class="form-group">
+              <select name="service" required>
+                <option value="">-- Priority Service --</option>
+                <option value="Full Security Audit">Full Security Audit</option>
+                <option value="VAPT & Pentesting">VAPT & Pentesting</option>
+                <option value="Endpoint Defense">Endpoint Defense</option>
+                <option value="Cloud Security">Cloud Security</option>
+                <option value="AD & Network Security">AD & Network Security</option>
+                <option value="DLP & Compliance">DLP & Compliance</option>
+                <option value="Managed Support">Managed Support</option>
+                <option value="Other / Custom Requirement">Other / Custom Requirement</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <textarea name="message" placeholder="Describe compliance needs (ISO, HIPAA) or specific challenges..." required style="height:100px;"></textarea>
+            </div>
+          </div>
+ 
+          <!-- SECTION 3: Identity -->
+          <div class="form-step">
+            <div class="step-title"><i class="fas fa-id-card"></i> Corporate Identity</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+               <input type="text" name="name" placeholder="Full Name" required style="padding:0.85rem; width:100%; background:#111; border:1px solid #2a2a2a; border-radius:6px; color:#fff;">
+               <input type="text" name="company" placeholder="Organization" required style="padding:0.85rem; width:100%; background:#111; border:1px solid #2a2a2a; border-radius:6px; color:#fff;">
+            </div>
+            <div class="form-group">
+              <input type="email" id="corp-email" name="email" placeholder="Corporate Email" required>
+              <div id="email-error" style="color:#ff3366;font-size:0.75rem;margin-top:0.25rem;display:none;">Corporate email required.</div>
+            </div>
+            
+            <div class="form-group">
               <div style="display:flex;gap:0.5rem;">
-                <select name="country_code" style="width:120px;" required>
-                  <option value="+1">US (+1)</option>
-                  <option value="+44">UK (+44)</option>
-                  <option value="+91" selected>IN (+91)</option>
-                  <option value="+61">AU (+61)</option>
-                  <option value="+971">UAE (+971)</option>
-                  <option value="+65">SG (+65)</option>
-                  <option value="+49">DE (+49)</option>
-                  <option value="+33">FR (+33)</option>
+                <select name="country_code" style="width:100px; padding:0.75rem;" required>
+                  <option value="+91" selected>+91</option>
+                  <option value="+1">+1</option>
+                  <option value="+44">+44</option>
+                  <option value="+61">+61</option>
+                  <option value="+971">+971</option>
                   <option value="other">Other</option>
                 </select>
-                <input type="tel" name="phone" id="corp-phone" placeholder="Mobile Number" required maxlength="20" style="flex:1;">
+                <input type="tel" name="phone" id="corp-phone" placeholder="Mobile Number" required style="padding:0.75rem; flex:1;">
               </div>
-              <div id="phone-error" style="color:#ff3366;font-size:0.85rem;margin-top:0.4rem;display:none;"><i class="fas fa-exclamation-triangle"></i> Invalid mobile number length.</div>
+              <div id="phone-error" style="color:#ff3366;font-size:0.75rem;margin-top:0.25rem;display:none;"></div>
             </div>
-
-            <div class="form-group"><input type="text" name="company" placeholder="Company / Organisation" maxlength="120"></div>
-            <div class="form-group"><textarea name="message" placeholder="Briefly describe your compliance requirements (e.g. ISO 27001, HIPAA) or specific challenges…" required maxlength="2000"></textarea></div>
           </div>
-
-          <button type="submit" class="btn btn-primary" style="width:100%;font-size:1.1rem;padding:1rem;">Submit Scoping Request</button>
+ 
+          <button type="submit" class="btn btn-primary" style="width:100%;font-size:1rem;padding:1rem;">Submit Scoping Request</button>
         </form>
       </div>
 
       <!-- Info -->
       <div class="reveal">
-        <h2 style="margin-bottom:2rem;font-size:1.9rem;">Contact Information</h2>
-        <div style="display:flex;flex-direction:column;gap:1.5rem;">
+        <h2 style="margin-bottom:1.5rem;font-size:1.9rem;">Contact Information</h2>
+        <div style="display:flex;flex-direction:column;gap:1.25rem;">
           <div class="info-card">
-            <h3><i class="fas fa-envelope"></i> Email</h3>
+            <h3><i class="fas fa-ticket-alt"></i> Support Ticket</h3>
+            <p>For technical infrastructure issues or service requests.</p>
+            <a href="/helpdesk/ticket" class="btn btn-outline" style="margin-top:1rem; width:100%; font-size:0.85rem; padding:0.6rem;">Create Ticket</a>
+          </div>
+          <div class="info-card">
+            <h3><i class="fas fa-envelope"></i> Engineering Support</h3>
             <p><a href="mailto:help@twiis.in" style="color:var(--primary);">help@twiis.in</a></p>
           </div>
           <div class="info-card">
@@ -154,12 +138,12 @@
             <p><a href="https://www.linkedin.com/company/twiis-innovations/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);">Twiis Innovations OPC Pvt. Ltd.</a></p>
           </div>
           <div class="info-card">
-            <h3><i class="fas fa-clock"></i> Response Time</h3>
-            <p>Our experts respond within 2 corporate hours for enterprise inquiries.</p>
+            <h3><i class="fas fa-clock"></i> SLA & Response</h3>
+            <p>Standard response within 2 corporate hours for enterprise partners.</p>
           </div>
           <div class="info-card">
-            <h3><i class="fas fa-certificate"></i> Registered</h3>
-            <p>Startup India Registered Company &mdash; Twiis Innovations OPC Pvt. Ltd.</p>
+            <h3><i class="fas fa-certificate"></i> Registered Entity</h3>
+            <p>Startup India Registered &mdash; Twiis Innovations OPC Pvt. Ltd.</p>
           </div>
         </div>
       </div>

@@ -25,6 +25,9 @@ Options -Indexes
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+    # Redirect helpdesk/ticket to helpdesk portal
+    RewriteRule ^helpdesk/ticket/?$ https://twiis.in/helpdesk/ [R=301,L]
+
     # Force www-less (optional)
     RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
     RewriteRule ^(.*)$ https://%1/$1 [R=301,L]

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-time Admin | Twiis Innovations</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root { --admin-sidebar: #0a0a0a; }
+    body { background: #050505; color: #fff; }
+    .admin-container { display: flex; min-height: 100vh; }
+    .admin-sidebar { width: 260px; background: var(--admin-sidebar); border-right: 1px solid var(--border); padding: 2rem; position: sticky; top: 0; height: 100vh; }
+    .admin-main { flex: 1; padding: 3rem; }
+    .admin-logo { margin-bottom: 3rem; }
+    .admin-logo img { height: 48px; }
+    .admin-nav ul { list-style: none; }
+    .admin-nav li { margin-bottom: 0.5rem; }
+    .admin-nav a { display: flex; align-items: center; gap: 1rem; color: var(--text-muted); font-weight: 500; transition: var(--transition); padding: 0.75rem 1rem; border-radius: 8px; cursor: pointer; }
+    .admin-nav a:hover, .admin-nav a.active { background: rgba(0,243,255,0.1); color: var(--primary); }
+    
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+    .stat-card { background: var(--glass-bg); border: 1px solid var(--border); padding: 1.5rem; border-radius: 12px; }
+    .stat-card h4 { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .stat-card .value { font-size: 2rem; font-weight: 800; color: var(--primary); }
+
+    .data-card { background: var(--glass-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .card-header { padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { padding: 1.25rem; background: rgba(255,255,255,0.02); color: #fff; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+    td { padding: 1.25rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--text-muted); }
+    tr:last-child td { border-bottom: none; }
+    .status-badge { padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; }
+    .status-new { background: rgba(0,243,255,0.1); color: var(--primary); }
+    .status-urgent { background: rgba(255,51,102,0.1); color: #ff3366; }
+
+    .login-overlay { position: fixed; inset: 0; background: #000; z-index: 2000; display: flex; align-items: center; justify-content: center; }
+    .login-card { background: var(--glass-bg); border: 1px solid var(--border); padding: 3rem; border-radius: 16px; width: 400px; text-align: center; }
+    .form-group { margin-bottom: 1.5rem; text-align: left; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-size: 0.85rem; color: var(--text-muted); }
+    .form-group input { width: 100%; background: #000; border: 1px solid var(--border); padding: 0.75rem; border-radius: 8px; color: #fff; }
+    
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <!-- Authentication Overlay -->
+  <div class="login-overlay" id="login-overlay">
+    <div class="login-card">
+      <div class="admin-logo"><img src="/images/logo.png" alt="Twiis Admin"></div>
+      <h2 style="margin-bottom: 2rem;">Secure Access</h2>
+      <div class="form-group">
+        <label>Identity Hash (Admin ID)</label>
+        <input type="text" id="admin-id" placeholder="ID-7729-TW">
+      </div>
+      <div class="form-group">
+        <label>Access Key</label>
+        <input type="password" id="admin-pass" placeholder="••••••••">
+      </div>
+      <button class="btn btn-primary" style="width:100%" id="login-btn">Initialize Session</button>
+    </div>
+  </div>
+
+  <div class="admin-container hidden" id="admin-dashboard">
+    <aside class="admin-sidebar">
+      <div class="admin-logo"><img src="/images/logo.png" alt="Twiis Admin"></div>
+      <nav class="admin-nav">
+        <ul>
+          <li><a id="nav-dash" class="active"><i class="fas fa-th-large"></i> Dashboard</a></li>
+          <li><a id="nav-leads"><i class="fas fa-user-plus"></i> Lead Engine</a></li>
+          <li><a id="nav-tickets"><i class="fas fa-headset"></i> Support Tickets</a></li>
+          <li style="margin-top: 2rem;"><a href="/"><i class="fas fa-external-link-alt"></i> Public Site</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3rem;">
+        <div>
+          <h1 id="page-title">Intelligence Dashboard</h1>
+          <p style="color:var(--text-muted); font-size:0.9rem;">Real-time monitoring of global enterprise requests.</p>
+        </div>
+        <div style="text-align:right;">
+          <div style="color:var(--primary); font-size:0.8rem; font-weight:700;"><i class="fas fa-circle" style="font-size:0.5rem; margin-right:0.5rem;"></i> SOC UPLINK ACTIVE</div>
+          <div id="last-sync" style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">Last sync: Just now</div>
+        </div>
+      </header>
+
+      <!-- Dashboard View -->
+      <div id="view-dash">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h4>Total Leads</h4>
+            <div class="value" id="stat-leads">0</div>
+          </div>
+          <div class="stat-card">
+            <h4>Open Tickets</h4>
+            <div class="value" id="stat-tickets">0</div>
+          </div>
+          <div class="stat-card">
+            <h4>Sync Status</h4>
+            <div class="value" style="font-size: 1.2rem; margin-top: 0.5rem;">READY</div>
+          </div>
+        </div>
+        <div class="data-card">
+          <div class="card-header">
+            <h3>Recent Activity</h3>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Source</th>
+                <th>Entity</th>
+                <th>Action</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="recent-body">
+              <tr><td colspan="4" style="text-align:center;">Initializing listeners...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Leads View -->
+      <div id="view-leads" class="hidden">
+        <div class="data-card">
+          <div class="card-header">
+            <h3>Incoming Leads</h3>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Lead Identity</th>
+                <th>Company</th>
+                <th>Service</th>
+                <th>Scale</th>
+                <th>Timestamp</th>
+              </tr>
+            </thead>
+            <tbody id="leads-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tickets View -->
+      <div id="view-tickets" class="hidden">
+        <div class="data-card">
+          <div class="card-header">
+            <h3>Support Tickets</h3>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>ID / Priority</th>
+                <th>Entity</th>
+                <th>Description</th>
+                <th>Timestamp</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tickets-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    // ── Authentication ──────────────────────────────────────────
+    const loginBtn = document.getElementById('login-btn');
+    loginBtn.addEventListener('click', () => {
+      const pass = document.getElementById('admin-pass').value;
+      if (pass === 'admin2026') {
+        document.getElementById('login-overlay').classList.add('hidden');
+        document.getElementById('admin-dashboard').classList.remove('hidden');
+        initRealtime();
+      } else {
+        alert('Access Denied. Identity mismatch.');
+      }
+    });
+
+    // ── Navigation Logic ────────────────────────────────────────
+    const views = ['dash', 'leads', 'tickets'];
+    const navItems = {
+      dash: document.getElementById('nav-dash'),
+      leads: document.getElementById('nav-leads'),
+      tickets: document.getElementById('nav-tickets')
+    };
+
+    Object.keys(navItems).forEach(key => {
+      navItems[key].addEventListener('click', () => {
+        views.forEach(v => {
+          document.getElementById(`view-${v}`).classList.add('hidden');
+          navItems[v].classList.remove('active');
+        });
+        document.getElementById(`view-${key}`).classList.remove('hidden');
+        navItems[key].classList.add('active');
+        document.getElementById('page-title').innerText = key.charAt(0).toUpperCase() + key.slice(1) + (key === 'dash' ? 'board' : ' Engine');
+      });
+    });
+
+    // ── Real-time Data (Firebase) ────────────────────────────────
+    import { onSnapshot, collection, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+    function initRealtime() {
+      if (!window.db) {
+        console.warn("Firebase not initialized. Showing mock data.");
+        return;
+      }
+
+      // Listen to Leads
+      onSnapshot(query(collection(window.db, "leads"), orderBy("Timestamp", "desc")), (snapshot) => {
+        const leadsBody = document.getElementById('leads-body');
+        const statLeads = document.getElementById('stat-leads');
+        const recentBody = document.getElementById('recent-body');
+        
+        leadsBody.innerHTML = '';
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          const row = `<tr>
+            <td>${d.Name}<br><small>${d.Email}</small></td>
+            <td>${d.Company}</td>
+            <td>${d.Service_Required}</td>
+            <td>${d.Scale}</td>
+            <td>${new Date(d.Timestamp).toLocaleString()}</td>
+          </tr>`;
+          leadsBody.innerHTML += row;
+        });
+        statLeads.innerText = snapshot.size;
+      });
+
+      // Listen to Tickets
+      onSnapshot(query(collection(window.db, "tickets"), orderBy("timestamp", "desc")), (snapshot) => {
+        const ticketsBody = document.getElementById('tickets-body');
+        const statTickets = document.getElementById('stat-tickets');
+        
+        ticketsBody.innerHTML = '';
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          const row = `<tr>
+            <td><span class="status-badge ${d.priority === 'Critical' ? 'status-urgent' : 'status-new'}">${d.priority}</span></td>
+            <td>${d.name}<br><small>${d.company}</small></td>
+            <td>${d.description.substring(0, 50)}...</td>
+            <td>${d.timestamp ? d.timestamp.toDate().toLocaleString() : 'Just now'}</td>
+            <td>${d.status}</td>
+          </tr>`;
+          ticketsBody.innerHTML += row;
+        });
+        statTickets.innerText = snapshot.size;
+      });
+    }
+  </script>
+
+  <!-- Global Header/Footer JS (loads site config) -->
+  <script src="/js/main.js"></script>
+</body>
+</html>
