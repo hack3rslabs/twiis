@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Real-time Admin | Twiis Innovations</title>
+  <title>Admin Dashboard | Twiis Innovations</title>
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -51,7 +51,7 @@
       <div class="admin-logo"><img src="/images/logo.png" alt="Twiis Admin"></div>
       <h2 style="margin-bottom: 2rem;">Secure Access</h2>
       <div class="form-group">
-        <label>Identity Hash (Admin ID)</label>
+        <label>Admin ID</label>
         <input type="text" id="admin-id" placeholder="ID-7729-TW">
       </div>
       <div class="form-group">
@@ -78,12 +78,12 @@
     <main class="admin-main">
       <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3rem;">
         <div>
-          <h1 id="page-title">Intelligence Dashboard</h1>
-          <p style="color:var(--text-muted); font-size:0.9rem;">Real-time monitoring of global enterprise requests.</p>
+          <h1 id="page-title">Management Console</h1>
+          <p style="color:var(--text-muted); font-size:0.9rem;">Reviewing global enterprise inquiries and support requests.</p>
         </div>
         <div style="text-align:right;">
-          <div style="color:var(--primary); font-size:0.8rem; font-weight:700;"><i class="fas fa-circle" style="font-size:0.5rem; margin-right:0.5rem;"></i> SOC UPLINK ACTIVE</div>
-          <div id="last-sync" style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">Last sync: Just now</div>
+          <div style="color:var(--primary); font-size:0.8rem; font-weight:700;"><i class="fas fa-shield-alt" style="font-size:0.5rem; margin-right:0.5rem;"></i> LOCAL MODE ACTIVE</div>
+          <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">Leads are delivered via help@twiis.in</div>
         </div>
       </header>
 
@@ -91,35 +91,27 @@
       <div id="view-dash">
         <div class="stats-grid">
           <div class="stat-card">
-            <h4>Total Leads</h4>
-            <div class="value" id="stat-leads">0</div>
+            <h4>Total Requests</h4>
+            <div class="value">Email Only</div>
           </div>
           <div class="stat-card">
-            <h4>Open Tickets</h4>
-            <div class="value" id="stat-tickets">0</div>
+            <h4>Security Status</h4>
+            <div class="value" style="font-size: 1.2rem; margin-top: 0.5rem; color:var(--primary);">HARDENED</div>
           </div>
           <div class="stat-card">
-            <h4>Sync Status</h4>
-            <div class="value" style="font-size: 1.2rem; margin-top: 0.5rem;">READY</div>
+            <h4>Integration</h4>
+            <div class="value" style="font-size: 1.2rem; margin-top: 0.5rem;">CPANEL</div>
           </div>
         </div>
         <div class="data-card">
           <div class="card-header">
-            <h3>Recent Activity</h3>
+            <h3>Recent System Activity</h3>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Source</th>
-                <th>Entity</th>
-                <th>Action</th>
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody id="recent-body">
-              <tr><td colspan="4" style="text-align:center;">Initializing listeners...</td></tr>
-            </tbody>
-          </table>
+          <div style="padding:3rem; text-align:center; color:var(--text-muted);">
+             <i class="fas fa-envelope-open-text" style="font-size:3rem; color:var(--primary); margin-bottom:1.5rem; display:block;"></i>
+             <p>All leads and support tickets are currently routed to your corporate email: <strong>help@twiis.in</strong></p>
+             <p style="font-size:0.8rem; margin-top:1rem;">To view them in this dashboard, a MySQL/PHP bridge is required for your cPanel environment.</p>
+          </div>
         </div>
       </div>
 
@@ -127,20 +119,11 @@
       <div id="view-leads" class="hidden">
         <div class="data-card">
           <div class="card-header">
-            <h3>Incoming Leads</h3>
+             <h3>Lead Monitoring</h3>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th>Lead Identity</th>
-                <th>Company</th>
-                <th>Service</th>
-                <th>Scale</th>
-                <th>Timestamp</th>
-              </tr>
-            </thead>
-            <tbody id="leads-body"></tbody>
-          </table>
+          <div style="padding:3rem; text-align:center; color:var(--text-muted);">
+             <p>Check <strong>help@twiis.in</strong> for incoming enterprise scoping requests.</p>
+          </div>
         </div>
       </div>
 
@@ -148,37 +131,33 @@
       <div id="view-tickets" class="hidden">
         <div class="data-card">
           <div class="card-header">
-            <h3>Support Tickets</h3>
+             <h3>Ticket Tracking</h3>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th>ID / Priority</th>
-                <th>Entity</th>
-                <th>Description</th>
-                <th>Timestamp</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="tickets-body"></tbody>
-          </table>
+          <div style="padding:3rem; text-align:center; color:var(--text-muted);">
+             <p>Support tickets are transmitted as [SUPPORT TICKET] emails to your engineering team.</p>
+          </div>
         </div>
       </div>
     </main>
   </div>
 
-  <script type="module">
+  <script>
     // ── Authentication ──────────────────────────────────────────
     const loginBtn = document.getElementById('login-btn');
-    loginBtn.addEventListener('click', () => {
+    // Handle Login
+    const handleLogin = () => {
       const pass = document.getElementById('admin-pass').value;
       if (pass === 'admin2026') {
         document.getElementById('login-overlay').classList.add('hidden');
         document.getElementById('admin-dashboard').classList.remove('hidden');
-        initRealtime();
       } else {
         alert('Access Denied. Identity mismatch.');
       }
+    };
+
+    loginBtn.addEventListener('click', handleLogin);
+    document.getElementById('admin-pass').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleLogin();
     });
 
     // ── Navigation Logic ────────────────────────────────────────
@@ -197,63 +176,11 @@
         });
         document.getElementById(`view-${key}`).classList.remove('hidden');
         navItems[key].classList.add('active');
-        document.getElementById('page-title').innerText = key.charAt(0).toUpperCase() + key.slice(1) + (key === 'dash' ? 'board' : ' Engine');
+        document.getElementById('page-title').innerText = key.charAt(0).toUpperCase() + key.slice(1) + (key === 'dash' ? 'board' : ' Console');
       });
     });
-
-    // ── Real-time Data (Firebase) ────────────────────────────────
-    import { onSnapshot, collection, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-    function initRealtime() {
-      if (!window.db) {
-        console.warn("Firebase not initialized. Showing mock data.");
-        return;
-      }
-
-      // Listen to Leads
-      onSnapshot(query(collection(window.db, "leads"), orderBy("Timestamp", "desc")), (snapshot) => {
-        const leadsBody = document.getElementById('leads-body');
-        const statLeads = document.getElementById('stat-leads');
-        const recentBody = document.getElementById('recent-body');
-        
-        leadsBody.innerHTML = '';
-        snapshot.forEach(doc => {
-          const d = doc.data();
-          const row = `<tr>
-            <td>${d.Name}<br><small>${d.Email}</small></td>
-            <td>${d.Company}</td>
-            <td>${d.Service_Required}</td>
-            <td>${d.Scale}</td>
-            <td>${new Date(d.Timestamp).toLocaleString()}</td>
-          </tr>`;
-          leadsBody.innerHTML += row;
-        });
-        statLeads.innerText = snapshot.size;
-      });
-
-      // Listen to Tickets
-      onSnapshot(query(collection(window.db, "tickets"), orderBy("timestamp", "desc")), (snapshot) => {
-        const ticketsBody = document.getElementById('tickets-body');
-        const statTickets = document.getElementById('stat-tickets');
-        
-        ticketsBody.innerHTML = '';
-        snapshot.forEach(doc => {
-          const d = doc.data();
-          const row = `<tr>
-            <td><span class="status-badge ${d.priority === 'Critical' ? 'status-urgent' : 'status-new'}">${d.priority}</span></td>
-            <td>${d.name}<br><small>${d.company}</small></td>
-            <td>${d.description.substring(0, 50)}...</td>
-            <td>${d.timestamp ? d.timestamp.toDate().toLocaleString() : 'Just now'}</td>
-            <td>${d.status}</td>
-          </tr>`;
-          ticketsBody.innerHTML += row;
-        });
-        statTickets.innerText = snapshot.size;
-      });
-    }
   </script>
 
-  <!-- Global Header/Footer JS (loads site config) -->
   <script src="/js/main.js"></script>
 </body>
 </html>

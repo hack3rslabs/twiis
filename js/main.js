@@ -226,23 +226,12 @@ document.addEventListener('DOMContentLoaded', () => {
           })
       });
 
-      // 2. Save to Firebase Firestore (Real-time Lead Management)
-      // Note: This requires Firebase to be initialized. See bottom of file for setup.
-      if (window.db) {
-        import("https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js").then(fs => {
-          fs.addDoc(fs.collection(window.db, "leads"), {
-            ...leadData,
-            server_time: fs.serverTimestamp()
-          }).catch(err => console.warn("Firestore Save Error:", err));
-        });
-      }
-
       // Success UI
       form.innerHTML = `
         <div style="text-align:center;padding:2.5rem 1rem;">
           <i class="fas fa-check-circle" style="font-size:4rem;color:var(--primary);display:block;margin-bottom:1.5rem;"></i>
           <h3 style="margin-bottom:.8rem;">Scoping Brief Transmitted</h3>
-          <p style="color:var(--text-muted);">Thank you, <strong>${safeName}</strong>. Your infrastructure details have been securely captured and synced with our Lead Management System.</p>
+          <p style="color:var(--text-muted);">Thank you, <strong>${safeName}</strong>. Your infrastructure details have been securely captured. Our engineers will review your scoping brief and contact you shortly.</p>
           <button onclick="location.reload()" class="btn btn-outline" style="margin-top:2rem;">Start New Scoping</button>
         </div>`;
     });
@@ -294,30 +283,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-
-// ── Firebase Core Setup ─────────────────────────────────────
-// To activate the Real-time Lead Management System:
-// 1. Create a Firebase project at console.firebase.google.com
-// 2. Enable "Firestore Database" in test mode or with security rules
-// 3. Paste your config below and rename YOUR_ properties.
-
-/*
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
-const app = initializeApp(firebaseConfig);
-window.db = getFirestore(app);
-*/
-
 
 // ── Canvas Particle Background (Neural Network Style) ───────────────
 const canvas = document.getElementById('canvas-bg');

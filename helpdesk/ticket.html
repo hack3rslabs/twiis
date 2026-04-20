@@ -46,11 +46,9 @@
 
 <site-footer></site-footer>
 <script src="/js/main.js"></script>
-<script type="module">
-  import { addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
+<script>
   const form = document.getElementById('ticket-form');
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
     const btn = form.querySelector('button');
     btn.disabled = true;
@@ -63,33 +61,29 @@
       email: formData.get('email'),
       company: formData.get('company'),
       description: formData.get('description'),
-      status: 'Open',
-      type: 'Ticket',
-      timestamp: serverTimestamp()
+      _subject: `[SUPPORT TICKET] Priority: ${formData.get('priority')} from ${formData.get('company')}`
     };
 
-    try {
-      if (window.db) {
-        await addDoc(collection(window.db, "tickets"), ticketData);
-        form.innerHTML = `<div style="text-align:center; padding:3rem 0;">
+    fetch("https://formsubmit.co/ajax/help@twiis.in", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(ticketData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      form.innerHTML = `<div style="text-align:center; padding:3rem 0;">
           <i class="fas fa-check-circle" style="font-size:4rem; color:var(--primary); margin-bottom:1.5rem;"></i>
-          <h2>Ticket Created Successfully</h2>
-          <p style="color:var(--text-muted);">Your ticket has been assigned to our global engineering team. You will receive an update at ${ticketData.email} shortly.</p>
+          <h2>Ticket Transmitted Successfully</h2>
+          <p style="color:var(--text-muted);">Your technical request has been received by our global engineering team at help@twiis.in.</p>
           <a href="/helpdesk" class="btn btn-outline" style="margin-top:2rem;">Return to Helpdesk</a>
         </div>`;
-      } else {
-        // Fallback for non-firebase environment
-        console.log("Firebase not initialized, sending via fallback...");
-        setTimeout(() => {
-           alert("Ticket received! (Demo Mode)");
-           window.location.href = "/helpdesk";
-        }, 1000);
-      }
-    } catch (err) {
+    })
+    .catch(err => {
       console.error(err);
-      alert("Error submitting ticket. Please email help@twiis.in");
+      alert("Error transmitting ticket. Please email help@twiis.in directly.");
       btn.disabled = false;
-    }
+      btn.innerText = "Initialize Support Ticket";
+    });
   });
 </script>
 </body>
