@@ -229,23 +229,26 @@ footer{border-top:1px solid var(--border);padding:4rem 0 2rem}
   .cta-banner{padding:2.5rem 1.5rem}
 }
 
-/* ── Support Ticket FAB ──────────────────────────────────── */
+/* ── Support Help FAB ────────────────────────────────────── */
 .support-fab {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 60px;
-  height: 60px;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  padding: 0.75rem 1.25rem;
   background: var(--primary);
   color: #000;
-  border-radius: 50%;
+  border-radius: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   box-shadow: 0 4px 20px var(--primary-glow);
   cursor: pointer;
-  z-index: 1001;
+  z-index: 2000;
   transition: var(--transition);
   text-decoration: none;
 }
