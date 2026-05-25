@@ -1,0 +1,24 @@
+[
+  {
+    "id": "1779339200",
+    "timestamp": "2026-05-20T10:00:00",
+    "name": "Jane Doe",
+    "company": "TechCorp Global",
+    "service": "Software Development",
+    "email": "jane@techcorp.com",
+    "phone": "+91 9876543210",
+    "status": "New",
+    "message": "Looking for a secure SaaS architecture for our new financial platform."
+  },
+  {
+    "id": "1779339300",
+    "timestamp": "2026-05-20T11:30:00",
+    "name": "John Smith",
+    "company": "EduSystems Ltd",
+    "service": "Cybersecurity Services",
+    "email": "john.s@edusystems.in",
+    "phone": "+1 5550199283",
+    "status": "Contacted",
+    "message": "Need VAPT assessment for our college management suite."
+  }
+]

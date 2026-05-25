@@ -22,32 +22,33 @@
       margin-top: 3rem;
     }
     .vendor-chip {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 2rem 1.5rem;
       text-align: center;
-      transition: border-color .3s, transform .3s;
+      transition: var(--transition);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100%;
+      box-shadow: var(--shadow);
     }
     .vendor-chip:hover {
-      border-color: rgba(0,243,255,.4);
+      border-color: var(--primary);
       transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,243,255,0.05);
+      box-shadow: 0 15px 30px -5px rgba(0,0,0,0.1);
     }
     .vendor-chip i {
       font-size: 3rem;
-      color: var(--primary);
+      color: var(--secondary);
       display: block;
       margin-bottom: 1rem;
     }
     .vendor-chip h4 {
       font-size: 1.1rem;
-      color: #fff;
+      color: var(--primary);
       margin-bottom: 0.5rem;
     }
     .vendor-chip span {
@@ -67,7 +68,7 @@
 <canvas id="canvas-bg"></canvas>
 <site-header></site-header>
 
-<section class="page-hero global-section">
+<section class="page-hero">
   <div class="container">
     <div class="page-hero-grid">
       <div class="reveal">

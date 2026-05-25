@@ -4,19 +4,48 @@ class SiteHeader extends HTMLElement {
     this.innerHTML = `
     <nav id="navbar">
       <div class="container">
-        <a href="/" class="nav-logo"><img src="/images/logo.png" alt="Twiis Innovations"></a>
+        <a href="/" class="logo-brand">
+          <div class="logo-icon">T</div>
+          Twiis
+        </a>
         <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
           <span></span><span></span><span></span>
         </button>
         <ul class="nav-links" id="nav-links">
           <li><a href="/">Home</a></li>
-          <li><a href="/services">Services</a></li>
+          <li class="dropdown">
+            <a href="/services" class="drop-trigger">Services <i class="fas fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="/services/it-solutions">IT Solutions & Support</a></li>
+              <li><a href="/services/software-development">Software Development</a></li>
+              <li><a href="/services/web-development">Web Development</a></li>
+              <li><a href="/services/devops-devsecops">DevOps & DevSecOps</a></li>
+              <li><a href="/services/qa-testing">QA & Testing</a></li>
+              <li><a href="/services/managed-hosting">Managed Hosting</a></li>
+              <li><a href="/services/app-security">App Security</a></li>
+              <li><a href="/services/vapt">VAPT & Pentesting</a></li>
+              <li><a href="/services/cloud-security">Cloud Security</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="/products" class="drop-trigger">Products <i class="fas fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="/products">All Products</a></li>
+              <li><a href="https://ledger.twiis.in" target="_blank">Ledger Book</a></li>
+              <li><a href="/products">ERP Suite</a></li>
+              <li><a href="/products">School Management</a></li>
+              <li><a href="/products">College Management</a></li>
+            </ul>
+          </li>
           <li><a href="/clients">Ecosystem</a></li>
-          <li><a href="/technologies">Technologies</a></li>
-          <li><a href="/partners">Partners</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="https://twiis.in/helpdesk/">Help</a></li>
-          <li><a href="/contact" class="btn btn-primary nav-cta">Get Secured</a></li>
+          <li class="dropdown">
+            <a href="/about" class="drop-trigger">About <i class="fas fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="/about">Our Company</a></li>
+              <li><a href="/team">Engineering Team</a></li>
+            </ul>
+          </li>
+          <li><a href="/contact" class="btn btn-primary nav-cta">Contact Us</a></li>
         </ul>
       </div>
     </nav>`;
@@ -30,43 +59,46 @@ class SiteFooter extends HTMLElement {
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand">
-            <a href="/" class="logo"><img src="/images/logo.png" alt="Twiis"></a>
-            <p>Securing the future of global enterprises. A registered Startup India company delivering high-end cybersecurity resilience through <strong>fully remote, borderless operations.</strong></p>
+            <a href="/" class="logo-brand">
+              <div class="logo-icon">T</div>
+              Twiis
+            </a>
+            <p>Securing the future of global enterprises through elite <strong>SaaS innovation</strong> and <strong>cybersecurity resilience</strong>.</p>
             <div class="footer-social">
               <a href="https://www.linkedin.com/company/twiis-innovations/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
             </div>
             <p style="margin-top:1rem;font-size:.85rem;"><i class="fas fa-envelope" style="color:var(--primary);margin-right:.4rem;"></i>help@twiis.in</p>
           </div>
           <div class="footer-links">
-            <h4>Security Services</h4>
+            <h4>Our Services</h4>
             <ul>
-              <li><a href="/services/app-security">App Security</a></li>
-              <li><a href="/services/endpoint-defense">Endpoint Defense</a></li>
-              <li><a href="/services/cloud-security">Cloud Security</a></li>
-              <li><a href="/services/vapt">AI-Guided VAPT</a></li>
-              <li><a href="/services/network-security">Network Security</a></li>
-              <li><a href="/services/dlp">Data Loss Prevention</a></li>
-              <li><a href="/services/email-security">Email Security</a></li>
-              <li><a href="/services/ad-security">Active Directory Security</a></li>
-            </ul>
-          </div>
-          <div class="footer-links">
-            <h4>Solutions</h4>
-            <ul>
+              <li><a href="/services/it-solutions">IT Solutions</a></li>
               <li><a href="/services/software-development">Software Development</a></li>
-              <li><a href="/services/remote-it-support">Remote IT Support</a></li>
-              <li><a href="/clients">Business Ecosystem</a></li>
-              <li><a href="/partners">Partner Program</a></li>
+              <li><a href="/services/app-security">App Security</a></li>
+              <li><a href="/services/vapt">AI-Guided VAPT</a></li>
+              <li><a href="/services/cloud-security">Cloud Security</a></li>
+              <li><a href="/services/endpoint-defense">Endpoint Defense</a></li>
             </ul>
           </div>
           <div class="footer-links">
-            <h4>Compliance</h4>
+            <h4>Our Products</h4>
             <ul>
+              <li><a href="https://ledger.twiis.in">Ledger Book</a></li>
+              <li><a href="/products">Twiis ERP Suite</a></li>
+              <li><a href="/products">School Management</a></li>
+              <li><a href="/products">College Management</a></li>
+              <li><a href="/products">Custom SaaS</a></li>
+            </ul>
+          </div>
+          <div class="footer-links">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="/about">About Us</a></li>
+              <li><a href="/contact">Contact Us</a></li>
+              <li><a href="/blogs">Engineering Blog</a></li>
+              <li><a href="/clients">Business Ecosystem</a></li>
               <li><a href="/privacy">Privacy Policy</a></li>
               <li><a href="/terms">Terms of Service</a></li>
-              <li><a href="https://twiis.in/helpdesk/">Helpdesk & Support</a></li>
-              <li><a href="/security-statement">Security Statement</a></li>
-              <li><a href="/ethics">Ethics & Conduct</a></li>
             </ul>
           </div>
         </div>
@@ -122,4 +154,30 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  // Load Dynamic CMS Content
+  async function loadDynamicContent() {
+    try {
+      const res = await fetch('/api/content.php');
+      if (res.ok) {
+        const data = await res.json();
+        
+        // Update first hero slide if it exists
+        const heroH1 = document.querySelector('.slide:nth-child(1) .hero-content h1');
+        const heroP = document.querySelector('.slide:nth-child(1) .hero-content p');
+        if (heroH1 && data.hero?.title) {
+            heroH1.innerHTML = data.hero.title.replace('Software Engineering', '<span class="gradient-text">Software Engineering</span>');
+        }
+        if (heroP && data.hero?.subtitle) {
+            heroP.innerText = data.hero.subtitle;
+        }
+
+        // We could theoretically loop through data.products, data.clients here
+        // and inject them into specific DOM containers if they exist.
+      }
+    } catch (e) {
+      console.log('CMS dynamic content load failed:', e);
+    }
+  }
+  loadDynamicContent();
 });

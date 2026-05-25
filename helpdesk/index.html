@@ -3,49 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Helpdesk & Support | Twiis Innovations</title>
-  <meta name="description" content="Twiis Innovations Helpdesk. Support tickets and technical resources for our global enterprise clients.">
-  <link rel="icon" type="image/png" href="/favicon.png">
+  <title>Helpdesk | Twiis Support Center</title>
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    .support-channels { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; }
-    .channel-card { background: var(--glass-bg); border: 1px solid var(--border); padding: 2rem; border-radius: 12px; text-align: center; transition: var(--transition); }
-    .channel-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-    .channel-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 1.5rem; }
-    .channel-card h3 { margin-bottom: 1rem; color: #fff; }
+    .help-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .help-card { background: white; border: 1px solid var(--border); padding: 2.5rem; border-radius: 16px; text-align: center; box-shadow: var(--shadow); transition: var(--transition); }
+    .help-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+    .help-card i { font-size: 3rem; color: var(--secondary); margin-bottom: 1.5rem; }
+    .contact-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem; }
   </style>
 </head>
 <body>
 <canvas id="canvas-bg"></canvas>
 <site-header></site-header>
 
-<section class="page-hero global-section">
+<section class="page-hero">
   <div class="container">
-    <h1 class="reveal">Helpdesk & <span class="gradient-text">Support</span></h1>
-    <p class="reveal">Enterprise-grade technical support for our global partners and clients. Secure, rapid, and borderless.</p>
+    <h1 class="reveal">Twiis <span class="gradient-text">Helpdesk</span></h1>
+    <p class="reveal">Your central hub for technical support, service requests, and engineering assistance.</p>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <div class="section-title reveal">
-      <h2>Global Support Channels</h2>
-      <p style="color:var(--text-muted);">Direct uplink to our security engineering team.</p>
-    </div>
-
-    <div class="support-channels reveal">
-      <div class="channel-card">
+    <div class="help-grid">
+      <div class="help-card reveal">
         <i class="fas fa-ticket-alt"></i>
-        <h3>Support Ticket</h3>
-        <p>Raise a formal technical ticket for tracking complex infrastructure issues.</p>
-        <a href="/helpdesk/ticket" class="btn btn-primary" style="margin-top:1.5rem; width:100%;">Raise Ticket</a>
+        <h3>Create Ticket</h3>
+        <p>Raise a new request for technical assistance.</p>
+        <a href="/helpdesk/ticket" class="btn btn-primary" style="margin-top:1.5rem; width:100%;">Create New Ticket</a>
       </div>
-      <div class="channel-card">
-        <i class="fas fa-envelope-open-text"></i>
-        <h3>Email Support</h3>
-        <p>Direct communication with our global engineering team for general inquiries.</p>
-        <a href="mailto:help@twiis.in" class="btn btn-outline" style="margin-top:1.5rem; width:100%;">Email Now</a>
+      <div class="help-card reveal">
+        <i class="fas fa-search"></i>
+        <h3>Track Ticket</h3>
+        <p>Check the status of your existing requests.</p>
+        <a href="/helpdesk/track" class="btn btn-outline" style="margin-top:1.5rem; width:100%;">Track Status</a>
+      </div>
+      <div class="help-card reveal">
+        <i class="fas fa-envelope"></i>
+        <h3>Contact Us</h3>
+        <p>Connect with our engineering or sales team.</p>
+        <a href="/contact" class="btn btn-outline" style="margin-top:1.5rem; width:100%;">Contact Support</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="global-section">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2 style="color:#fff;">Corporate Support Details</h2>
+    </div>
+    <div class="contact-info-grid">
+      <div class="info-card reveal">
+        <h3><i class="fas fa-map-marker-alt"></i> Corporate HQ</h3>
+        <p>Twiis Innovations OPC Pvt. Ltd.<br>123 Innovation Drive, Bangalore, IN</p>
+      </div>
+      <div class="info-card reveal">
+        <h3><i class="fas fa-envelope"></i> Email Support</h3>
+        <p>General: help@twiis.in<br>SOC Team: help@twiis.in</p>
+      </div>
+      <div class="info-card reveal">
+        <h3><i class="fas fa-phone-alt"></i> Priority Lines</h3>
+        <p>Support: +91 80 4444 5555<br>Security: +91 80 9999 0000</p>
       </div>
     </div>
   </div>
@@ -53,5 +74,6 @@
 
 <site-footer></site-footer>
 <script src="/js/main.js"></script>
+<script src="/js/cms.js"></script>
 </body>
 </html>

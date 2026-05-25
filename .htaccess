@@ -22,8 +22,8 @@ Options -Indexes
     RewriteBase /
 
     # Force HTTPS
-    RewriteCond %{HTTPS} off
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # Security Statement Redirect
     RewriteRule ^security-statement/?$ https://twiis.in/security-statement/ [R=301,L]
@@ -46,6 +46,11 @@ Options -Indexes
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME}.html -f
     RewriteRule ^(.+)$ $1.html [L]
+
+    # Strip .php extension if file exists
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.+)$ $1.php [L]
 </IfModule>
 
 # ── Custom Error Pages ────────────────────────────────────────

@@ -3,40 +3,118 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Twiis | Request a Free Security Audit</title>
-  <meta name="description" content="Contact Twiis Innovations for a free cybersecurity audit. Enterprise security consulting, VAPT, cloud security and more. Email: help@twiis.in">
+  <title>Contact Twiis | Enterprise Scoping & Support</title>
+  <meta name="description" content="Engage with Twiis Innovations for enterprise software solutions and cybersecurity auditing. Generate a secure scoping request or access our global support desk.">
   <link rel="canonical" href="https://twiis.in/contact">
-  <meta property="og:title" content="Contact Twiis Innovations">
-  <meta property="og:url" content="https://twiis.in/contact">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <style>
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 2rem;
+    }
+    .form-section {
+      background: #ffffff;
+      padding: 3.5rem;
+      border-radius: 24px;
+      box-shadow: 0 10px 40px rgba(31, 58, 95, 0.08);
+      border: 1px solid var(--border);
+    }
+    .form-step { margin-bottom: 2.5rem; }
+    .form-step-header {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+      padding-left: 0.5rem;
+    }
+    /* Smooth Radio Pills */
+    .radio-grid { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .radio-card { cursor: pointer; }
+    .radio-card input { display: none; }
+    .card-content {
+      padding: 0.7rem 1.5rem;
+      background: #f8fafc;
+      border: 2px solid transparent;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: var(--transition);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .radio-card input:checked + .card-content {
+      background: var(--primary);
+      color: white;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(31,58,95,0.05);
+    }
+    .info-section { display: flex; flex-direction: column; gap: 2rem; }
+    .contact-method {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 1.5rem;
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+    .contact-method:hover {
+      border-color: var(--primary);
+      transform: translateY(-5px);
+    }
+    .method-icon {
+      width: 50px; height: 50px;
+      background: #f0f7f4; color: var(--secondary);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; flex-shrink: 0;
+    }
+    @media(max-width: 992px) {
+      .contact-container { grid-template-columns: 1fr; gap: 3rem; }
+      .form-section { padding: 2rem; }
+    }
+  </style>
 </head>
 <body>
 <canvas id="canvas-bg"></canvas>
 <site-header></site-header>
 
-<section class="page-hero global-section">
+<section class="page-hero">
   <div class="container">
-    <h1 class="reveal">Secure Your Business <span class="gradient-text">Today.</span></h1>
-    <p class="reveal">Connect with our global security engineers for a custom risk assessment and tailored defense roadmap.</p>
+    <h1 class="reveal">Connect with <span class="gradient-text">Our Engineers.</span></h1>
+    <p class="reveal">Whether you're looking to build a next-gen SaaS product or secure your enterprise infrastructure, we're ready to deliver.</p>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <div class="contact-page-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
-
-      <!-- Form -->
-      <div class="reveal">
-        <h2 style="margin-bottom:0.5rem;font-size:1.9rem;">Enterprise Scoping Request</h2>
-        <p style="color:var(--text-muted);margin-bottom:2rem;font-size:0.95rem;">Select your requirements to generate a secure quotation brief.</p>
+    <div class="contact-container">
+      
+      <!-- Left: Form Section -->
+      <div class="form-section reveal">
+        <h2 style="margin-bottom: 2rem;">Enterprise Scoping</h2>
         
-        <form id="contact-form" class="contact-form">
-          <!-- SECTION 1: Scope -->
+        <form id="contact-form">
+          <!-- STEP 1 -->
           <div class="form-step">
-            <div class="step-title"><i class="fas fa-microchip"></i> Environment & Scale</div>
-            <div class="radio-grid">
+            <div class="form-step-header"><span>1</span> Environment Details</div>
+            <div class="radio-grid" style="margin-bottom: 1.5rem;">
               <label class="radio-card">
                 <input type="radio" name="infra" value="Cloud" checked>
                 <div class="card-content"><i class="fas fa-cloud"></i><span>Cloud</span></div>
@@ -50,108 +128,145 @@
                 <div class="card-content"><i class="fas fa-network-wired"></i><span>Hybrid</span></div>
               </label>
             </div>
-            
-            <div class="radio-grid" style="margin-top:0.75rem;">
-              <label class="radio-card">
-                <input type="radio" name="scale" value="1-50" checked>
-                <div class="card-content"><span>1-50 Users</span></div>
-              </label>
-              <label class="radio-card">
-                <input type="radio" name="scale" value="51-250">
-                <div class="card-content"><span>51-250</span></div>
-              </label>
-              <label class="radio-card">
-                <input type="radio" name="scale" value="250+">
-                <div class="card-content"><span>250+ Ent</span></div>
-              </label>
-            </div>
           </div>
- 
-          <!-- SECTION 2: Service -->
+
+          <!-- STEP 2 -->
           <div class="form-step">
-            <div class="step-title"><i class="fas fa-shield-alt"></i> Requirements</div>
+            <div class="form-step-header"><span>2</span> Service Selection</div>
             <div class="form-group">
               <select name="service" required>
-                <option value="">-- Priority Service --</option>
-                <option value="Full Security Audit">Full Security Audit</option>
-                <option value="VAPT & Pentesting">VAPT & Pentesting</option>
-                <option value="Endpoint Defense">Endpoint Defense</option>
-                <option value="Cloud Security">Cloud Security</option>
-                <option value="AD & Network Security">AD & Network Security</option>
-                <option value="DLP & Compliance">DLP & Compliance</option>
-                <option value="Managed Support">Managed Support</option>
-                <option value="Other / Custom Requirement">Other / Custom Requirement</option>
+                <option value="">-- Choose Priority Service --</option>
+                <option value="Software Development">Secure Software Development</option>
+                <option value="Cybersecurity Services">Cybersecurity Services / VAPT</option>
+                <option value="IT Solutions">Enterprise IT Solutions</option>
+                <option value="Custom SaaS">Custom SaaS / ERP Solution</option>
               </select>
             </div>
             <div class="form-group">
-              <textarea name="message" placeholder="Describe compliance needs (ISO, HIPAA) or specific challenges..." required style="height:100px;"></textarea>
+              <textarea name="message" placeholder="Briefly describe your requirements or challenges..." required style="height:120px;"></textarea>
             </div>
           </div>
- 
-          <!-- SECTION 3: Identity -->
+
+          <!-- STEP 3 -->
           <div class="form-step">
-            <div class="step-title"><i class="fas fa-id-card"></i> Corporate Identity</div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
-               <input type="text" name="name" placeholder="Full Name" required style="padding:0.85rem; width:100%; background:#111; border:1px solid #2a2a2a; border-radius:6px; color:#fff;">
-               <input type="text" name="company" placeholder="Organization" required style="padding:0.85rem; width:100%; background:#111; border:1px solid #2a2a2a; border-radius:6px; color:#fff;">
-            </div>
-            <div class="form-group">
-              <input type="email" id="corp-email" name="email" placeholder="Corporate Email" required>
-              <div id="email-error" style="color:#ff3366;font-size:0.75rem;margin-top:0.25rem;display:none;">Corporate email required.</div>
-            </div>
-            
-            <div class="form-group">
-              <div style="display:flex;gap:0.5rem;">
-                <select name="country_code" style="width:100px; padding:0.75rem;" required>
-                  <option value="+91" selected>+91</option>
-                  <option value="+1">+1</option>
-                  <option value="+44">+44</option>
-                  <option value="+61">+61</option>
-                  <option value="+971">+971</option>
-                  <option value="other">Other</option>
+            <div class="form-step-header"><span>3</span> Corporate Identity</div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1rem;">
+              <div class="form-group"><input type="text" name="name" placeholder="Full Name" required></div>
+              <div class="form-group"><input type="text" name="company" placeholder="Organization" required></div>
+              <div class="form-group"><input type="email" name="email" placeholder="Corporate Email" required></div>
+              <div class="form-group" style="display:flex; gap:0.5rem;">
+                <select name="country" style="width:110px; flex-shrink:0;">
+                  <option value="+91" selected>+91 (IN)</option>
+                  <option value="+1">+1 (US)</option>
+                  <option value="+44">+44 (UK)</option>
+                  <option value="+971">+971 (UAE)</option>
+                  <option value="+65">+65 (SG)</option>
                 </select>
-                <input type="tel" name="phone" id="corp-phone" placeholder="Mobile Number" required style="padding:0.75rem; flex:1;">
+                <input type="tel" name="phone" placeholder="Mobile Number" required>
               </div>
-              <div id="phone-error" style="color:#ff3366;font-size:0.75rem;margin-top:0.25rem;display:none;"></div>
             </div>
           </div>
- 
-          <button type="submit" class="btn btn-primary" style="width:100%;font-size:1rem;padding:1rem;">Submit Scoping Request</button>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:1.2rem; font-size:1.1rem; margin-top:1rem;">Initialize Secure Request</button>
         </form>
       </div>
 
-      <!-- Info -->
-      <div class="reveal">
-        <h2 style="margin-bottom:1.5rem;font-size:1.9rem;">Contact Information</h2>
-        <div style="display:flex;flex-direction:column;gap:1.25rem;">
-          <div class="info-card">
-            <h3><i class="fas fa-ticket-alt"></i> Support Ticket</h3>
-            <p>For technical infrastructure issues or service requests.</p>
-            <a href="https://twiis.in/helpdesk/ticket" class="btn btn-outline" style="margin-top:1rem; width:100%; font-size:0.85rem; padding:0.6rem;">Create Ticket</a>
-          </div>
-          <div class="info-card">
-            <h3><i class="fas fa-envelope"></i> Engineering Support</h3>
-            <p><a href="mailto:help@twiis.in" style="color:var(--primary);">help@twiis.in</a></p>
-          </div>
-          <div class="info-card">
-            <h3><i class="fab fa-linkedin"></i> LinkedIn</h3>
-            <p><a href="https://www.linkedin.com/company/twiis-innovations/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);">Twiis Innovations OPC Pvt. Ltd.</a></p>
-          </div>
-          <div class="info-card">
-            <h3><i class="fas fa-clock"></i> SLA & Response</h3>
-            <p>Standard response within 2 corporate hours for enterprise partners.</p>
-          </div>
-          <div class="info-card">
-            <h3><i class="fas fa-certificate"></i> Registered Entity</h3>
-            <p>Startup India Registered &mdash; Twiis Innovations OPC Pvt. Ltd.</p>
+      <!-- Right: Info Section -->
+      <div class="info-section reveal">
+        <h2 style="margin-bottom: 0.5rem;">Corporate Access</h2>
+        <p style="color:var(--text-muted); margin-bottom: 2rem;">Direct lines to our global engineering and support departments.</p>
+
+        <!-- Method 1 -->
+        <div class="contact-method">
+          <div class="method-icon"><i class="fas fa-headset"></i></div>
+          <div class="method-text">
+            <h3>Support Helpdesk</h3>
+            <p>For existing partners requiring technical assistance.</p>
+            <a href="/helpdesk" class="btn btn-outline" style="margin-top:0.8rem; padding:0.5rem 1.2rem; font-size:0.8rem;">Open Portal</a>
           </div>
         </div>
+
+        <!-- Method 2 -->
+        <div class="contact-method" style="cursor: pointer;" onclick="window.location.href='mailto:help@twiis.in';">
+          <div class="method-icon"><i class="fas fa-envelope-open-text"></i></div>
+          <div class="method-text">
+            <h3>General Inquiries</h3>
+            <p>Strategic partnerships and non-technical requests.</p>
+            <a href="mailto:help@twiis.in" style="color:var(--primary); font-weight:700; font-size:0.9rem; margin-top:0.5rem; display:inline-block;">help@twiis.in</a>
+          </div>
+        </div>
+
+        <!-- Method 3 (Direct Call) -->
+        <div class="contact-method" style="cursor: pointer;" onclick="window.location.href='tel:+919121773704';">
+          <div class="method-icon"><i class="fas fa-phone-alt"></i></div>
+          <div class="method-text">
+            <h3>Direct Call</h3>
+            <p>Speak directly with our solutions engineering desk.</p>
+            <a href="tel:+919121773704" style="color:var(--primary); font-weight:700; font-size:0.9rem; margin-top:0.5rem; display:inline-block;">+91 91217 73704</a>
+          </div>
+        </div>
+
+        <!-- Method 4 -->
+        <div class="contact-method" style="cursor: pointer;" onclick="window.open('https://www.linkedin.com/company/twiis-innovations/', '_blank');">
+          <div class="method-icon"><i class="fab fa-linkedin"></i></div>
+          <div class="method-text">
+            <h3>Global Network</h3>
+            <p>Connect with our engineering hub on LinkedIn.</p>
+            <a href="https://www.linkedin.com/company/twiis-innovations/" target="_blank" style="color:var(--primary); font-weight:700; font-size:0.9rem; margin-top:0.5rem; display:inline-block;">Twiis Innovations OPC Pvt. Ltd.</a>
+          </div>
+        </div>
+
+        <!-- Method 4 -->
+        <div class="contact-method">
+          <div class="method-icon"><i class="fas fa-certificate"></i></div>
+          <div class="method-text">
+            <h3>Compliance & Entity</h3>
+            <p>Registered Startup India Company</p>
+            <p style="font-weight:700; color:var(--primary-dark); margin-top:0.3rem;">Incorporated 2024</p>
+          </div>
+        </div>
+
       </div>
+
     </div>
   </div>
 </section>
 
 <site-footer></site-footer>
 <script src="/js/main.js"></script>
+<script>
+  const form = document.getElementById('contact-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button');
+    btn.disabled = true;
+    btn.innerText = "Transmitting...";
+
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch('/api/submit-lead.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        form.innerHTML = `<div style="text-align:center; padding:3rem 0;">
+          <i class="fas fa-check-circle" style="font-size:4rem; color:var(--secondary); margin-bottom:1.5rem;"></i>
+          <h2>Request Received</h2>
+          <p style="color:var(--text-muted);">Our engineering team will contact you shortly to discuss your scoping requirements.</p>
+        </div>`;
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Transmission failed. Please email help@twiis.in');
+      btn.disabled = false;
+      btn.innerText = "Initialize Secure Request";
+    }
+  });
+</script>
+<script src="/js/cms.js"></script>
 </body>
 </html>

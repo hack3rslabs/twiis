@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Minds | Twiis Innovations</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    .team-card {
+      text-align: center;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+    .team-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+    }
+    .team-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      background: #f0f4f8;
+      overflow: hidden;
+      border: 3px solid var(--border);
+      transition: var(--transition);
+    }
+    .team-card:hover .team-photo {
+      border-color: var(--secondary);
+    }
+    .team-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .team-card h3 {
+      font-size: 1.25rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.3rem;
+    }
+    .team-card p {
+      font-size: 0.9rem;
+      color: var(--secondary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.2rem;
+    }
+    .team-social a {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+    .team-social a:hover {
+      color: #0077b5;
+    }
+    .hierarchy-section {
+      margin-bottom: 4rem;
+    }
+    .hierarchy-title {
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+    .culture-section {
+      background: var(--bg-body);
+      padding: 4rem 0;
+      border-radius: 24px;
+      margin-bottom: 4rem;
+    }
+  </style>
+</head>
+<body>
+<canvas id="canvas-bg"></canvas>
+<site-header></site-header>
+
+<section class="page-hero">
+  <div class="container">
+    <h1 class="reveal">The <span class="gradient-text">Engineering</span> Minds</h1>
+    <p class="reveal">Meet the experts from Techwell and Twiis driving global software innovation and cybersecurity resilience through a relentless, test-oriented mindset.</p>
+  </div>
+</section>
+
+<section class="culture-section reveal">
+  <div class="container">
+    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+      <h2>Built on Rigor, Defined by Results</h2>
+      <p style="margin-top: 1.5rem; color: var(--text-muted); line-height: 1.8;">
+        At Twiis, our engineering philosophy is not merely about code—it's about <em>verifiable assurance</em>. We operate on a 'test-oriented' culture where every line of code, every architectural decision, and every security policy undergoes exhaustive validation. Our team of architects, developers, and security researchers doesn't just build; they challenge, break, and rebuild systems until they are bulletproof, scalable, and genuinely useful for our clients.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ENGINEERING RIGOR & TECH STACK -->
+<section style="padding-bottom: 5rem;">
+  <div class="container">
+    <div class="two-col">
+      <div class="info-card reveal">
+        <h3><i class="fas fa-microscope"></i> Test-Oriented Culture</h3>
+        <ul style="color:var(--text-muted); line-height:1.8; margin-top:1rem; padding-left:1.5rem;">
+          <li><strong>Test-Driven Development (TDD):</strong> Ensuring functionality through rigorous unit testing before implementation.</li>
+          <li><strong>CI/CD Pipelines:</strong> Automated regression testing to guarantee deployment safety at scale.</li>
+          <li><strong>Security Auditing:</strong> Continuous automated vulnerability scanning built directly into our deployment workflow.</li>
+        </ul>
+      </div>
+      <div class="info-card reveal">
+        <h3><i class="fas fa-code-branch"></i> Core Technology Stack</h3>
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem; margin-top:1rem; text-align:center;">
+          <div style="font-size:2rem; color:var(--primary);"><i class="fab fa-node-js"></i></div>
+          <div style="font-size:2rem; color:var(--primary);"><i class="fab fa-react"></i></div>
+          <div style="font-size:2rem; color:var(--primary);"><i class="fab fa-docker"></i></div>
+          <div style="font-size:2rem; color:var(--primary);"><i class="fab fa-aws"></i></div>
+          <div style="font-size:2rem; color:var(--primary);"><i class="fab fa-kubernetes"></i></div>
+          <div style="font-size:2rem; color:var(--primary);"><i class="fab fa-python"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container" id="team-container">
+    <!-- Team sections will be loaded here dynamically -->
+    <div style="text-align:center; padding: 5rem 0;">
+      <p>Loading our engineering team...</p>
+    </div>
+  </div>
+</section>
+
+<site-footer></site-footer>
+<script src="/js/main.js"></script>
+<script>
+  async function loadTeam() {
+    const res = await fetch('/api/team');
+    const team = await res.json();
+    const container = document.getElementById('team-container');
+    
+    if (team.length === 0) {
+      container.innerHTML = `<h3>Our team is expanding</h3><p>We are currently updating our directory.</p>`;
+      return;
+    }
+
+    const levels = {
+      "1": "Executive Leadership",
+      "2": "Management & Architecture",
+      "3": "Strategic Leads",
+      "4": "Engineering Team"
+    };
+
+    let html = '';
+    
+    [1, 2, 3, 4].forEach(lvl => {
+      const levelMembers = team.filter(m => parseInt(m.hierarchy) === lvl);
+      if (levelMembers.length > 0) {
+        html += `
+          <div class="hierarchy-section reveal">
+            <h2 class="hierarchy-title">${levels[lvl]}</h2>
+            <div class="team-grid">
+              ${levelMembers.map(m => `
+                <div class="team-card">
+                  <div class="team-photo">
+                    <img src="${m.photo || 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&h=400&fit=crop'}" alt="${m.name}">
+                  </div>
+                  <h3>${m.name}</h3>
+                  <p>${m.designation}</p>
+                  <div class="team-social">
+                    <a href="${m.linkedin}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+    });
+    
+    container.innerHTML = html;
+  }
+  loadTeam();
+</script>
+<script src="/js/cms.js"></script>
+</body>
+</html>

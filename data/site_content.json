@@ -1,0 +1,46 @@
+{
+    "hero": {
+        "title": "Next-Gen Software Engineering",
+        "subtitle": "We build the backbone of modern enterprise. Our custom SaaS, ERP, and API solutions are engineered for performance, security, and effortless scalability."
+    },
+    "products": [
+        {
+            "name": "Ledger Book",
+            "url": "https:\/\/ledger.twiis.in"
+        },
+        {
+            "name": "Twiis ERP Suite",
+            "url": "\/products"
+        }
+    ],
+    "services": [
+        {
+            "name": "IT Solutions",
+            "url": "\/services\/it-solutions"
+        },
+        {
+            "name": "Software Development",
+            "url": "\/services\/software-development"
+        }
+    ],
+    "clients": [
+        {
+            "name": "Vestarra",
+            "logo": "fa-building"
+        },
+        {
+            "name": "Realestate and venture management",
+            "logo": "fa-piggy-bank"
+        }
+    ],
+    "footer": [
+        {
+            "name": "Privacy Policy",
+            "url": "\/privacy"
+        },
+        {
+            "name": "Terms of Service",
+            "url": "\/terms"
+        }
+    ]
+}
