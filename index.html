@@ -13,10 +13,13 @@
 <site-header></site-header>
 
 <!-- HERO SLIDER -->
-<header class="hero-slider">
+<header class="hero-slider white-hero">
+  <div class="glow-blob" style="top: -100px; right: -100px;"></div>
+  <div class="glow-blob" style="bottom: -100px; left: -100px; background: radial-gradient(circle, rgba(31, 122, 92, 0.12) 0%, rgba(255, 255, 255, 0) 70%);"></div>
+
   <div class="slide active">
     <div class="container hero-container">
-      <div class="hero-content">
+      <div class="hero-content hero-glass-card">
         <h1 class="reveal">Next-Gen <span class="gradient-text">Software Engineering</span></h1>
         <p class="reveal">We build the backbone of modern enterprise. Our custom SaaS, ERP, and API solutions are engineered for performance, security, and effortless scalability.</p>
         <ul class="reveal" style="color:var(--text-muted); margin-bottom:2rem; list-style:disc; padding-left:1.5rem;">
@@ -26,12 +29,12 @@
         </ul>
         <a href="/services/software-development" class="btn btn-primary">Explore Solutions</a>
       </div>
-      <div class="cyber-animation reveal"><i class="fas fa-code shield-icon"></i></div>
+      <div class="cyber-animation reveal floating-element" style="right: 5%;"><i class="fas fa-code shield-icon"></i></div>
     </div>
   </div>
   <div class="slide">
     <div class="container hero-container">
-      <div class="hero-content">
+      <div class="hero-content hero-glass-card">
         <h2 class="reveal">Uncompromising <span class="gradient-text">Security</span></h2>
         <p class="reveal">AI-driven cybersecurity and VAPT designed to protect your most sensitive assets in an evolving threat landscape.</p>
         <ul class="reveal" style="color:var(--text-muted); margin-bottom:2rem; list-style:disc; padding-left:1.5rem;">
@@ -41,12 +44,12 @@
         </ul>
         <a href="/services" class="btn btn-primary">Our Services</a>
       </div>
-      <div class="cyber-animation reveal"><i class="fas fa-shield-alt shield-icon"></i></div>
+      <div class="cyber-animation reveal floating-element" style="right: 5%;"><i class="fas fa-shield-alt shield-icon"></i></div>
     </div>
   </div>
   <div class="slide">
     <div class="container hero-container">
-      <div class="hero-content">
+      <div class="hero-content hero-glass-card">
         <h2 class="reveal">Proprietary <span class="gradient-text">SaaS Products</span></h2>
         <p class="reveal">Market-leading business applications, custom-built to streamline operations, reduce overhead, and drive growth.</p>
         <ul class="reveal" style="color:var(--text-muted); margin-bottom:2rem; list-style:disc; padding-left:1.5rem;">
@@ -56,7 +59,7 @@
         </ul>
         <a href="/products" class="btn btn-primary">View Products</a>
       </div>
-      <div class="cyber-animation reveal"><i class="fas fa-rocket shield-icon"></i></div>
+      <div class="cyber-animation reveal floating-element" style="right: 5%;"><i class="fas fa-rocket shield-icon"></i></div>
     </div>
   </div>
 </header>
@@ -65,24 +68,24 @@
 <section id="services">
   <div class="container">
     <div class="section-title reveal">
-      <h2>The Twiis Ecosystem</h2>
+      <h2>Our <span class="gradient-text">Services</span></h2>
       <p>Driving operational excellence through secure-by-design methodologies.</p>
     </div>
     <div class="services-grid">
-      <a href="/services/it-solutions" class="service-card reveal">
-        <i class="fas fa-server"></i>
-        <h3>Enterprise IT Solutions</h3>
-        <p>Proactive infrastructure management and 24/7 remote support ensuring 99.9% uptime.</p>
-      </a>
-      <a href="/products" class="service-card reveal">
-        <i class="fas fa-rocket"></i>
-        <h3>Own Products</h3>
-        <p>Our suite of proprietary SaaS tools including Ledger Book, Twiis ERP, and dedicated Management Systems.</p>
-      </a>
       <a href="/services" class="service-card reveal">
         <i class="fas fa-shield-alt"></i>
-        <h3>Cybersecurity Services</h3>
-        <p>AI-driven VAPT, Cloud Security Posture Management, and Automated App Security.</p>
+        <h3>Cyber Security</h3>
+        <p>Email Security, Cloud Security, Network Security, Endpoint Defense, Application Security, and AI-Guided VAPT.</p>
+      </a>
+      <a href="/services" class="service-card reveal">
+        <i class="fas fa-server"></i>
+        <h3>IT Solutions</h3>
+        <p>IT Support, Infrastructure Support, Asset Management, and Installation & AMC services for enterprise uptime.</p>
+      </a>
+      <a href="/services" class="service-card reveal">
+        <i class="fas fa-code"></i>
+        <h3>Software Solutions</h3>
+        <p>Software Development, Web Development, Customised Applications, and ERP Software Prime Core.</p>
       </a>
     </div>
   </div>

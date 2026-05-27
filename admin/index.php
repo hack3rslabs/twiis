@@ -36,8 +36,9 @@ if (!isset($_SESSION['twiis_admin']) || $_SESSION['twiis_admin'] !== true) {
 
 <div class="admin-nav">
   <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
-    <h2 style="color:white; margin:0;">Twiis <span style="color:var(--secondary)">Admin</span></h2>
+    <h2 style="color:white; margin:0; display:flex; align-items:center;"><img src="/images/logo.svg" alt="Logo" style="height: 45px; margin-right: 10px; border-radius: 6px;"> <span style="color:var(--secondary); margin-left: 5px;">Admin</span></h2>
     <a href="/" class="btn btn-outline" style="color:white; border-color:white; padding:0.4rem 1rem; font-size:0.8rem;">View Site</a>
+    <a href="/admin/logout.php" class="btn btn-outline" style="color:white; border-color:white; padding:0.4rem 1rem; font-size:0.8rem; margin-left:0.5rem;">Logout</a>
   </div>
 </div>
 
@@ -49,6 +50,7 @@ if (!isset($_SESSION['twiis_admin']) || $_SESSION['twiis_admin'] !== true) {
     <button class="tab-btn" onclick="showTab('team', event)"><i class="fas fa-users"></i> Team</button>
     <button class="tab-btn" onclick="showTab('contacts', event)"><i class="fas fa-address-book"></i> Contacts</button>
     <button class="tab-btn" onclick="showTab('ecosystem', event)"><i class="fas fa-handshake"></i> Clients</button>
+    <button class="tab-btn" onclick="showTab('links', event)"><i class="fas fa-link"></i> Links</button>
     <button class="tab-btn" onclick="showTab('content', event)"><i class="fas fa-edit"></i> CMS</button>
   </div>
 
@@ -92,7 +94,12 @@ if (!isset($_SESSION['twiis_admin']) || $_SESSION['twiis_admin'] !== true) {
       <div class="editor-form">
         <input type="hidden" id="member-id"><input type="text" id="member-name" placeholder="Name">
         <input type="text" id="member-designation" placeholder="Designation"><input type="text" id="member-linkedin" placeholder="LinkedIn">
-        <input type="text" id="member-photo" placeholder="Photo Path">
+        <input type="hidden" id="member-existing-photo">
+        <div>
+          <label style="font-size:0.9rem;font-weight:600;margin-bottom:0.5rem;display:block;">Photo</label>
+          <img id="member-photo-preview" src="" style="max-width:100px; max-height:100px; display:none; margin-bottom:10px; border-radius:6px;">
+          <input type="file" id="member-photo" accept="image/*">
+        </div>
         <select id="member-hierarchy"><option value="1">Exec</option><option value="4">Eng</option></select>
         <button class="btn btn-primary" onclick="saveMember()">Save</button>
       </div>
@@ -165,6 +172,31 @@ if (!isset($_SESSION['twiis_admin']) || $_SESSION['twiis_admin'] !== true) {
     </div>
   </div>
 
+  <!-- LINKS TAB -->
+  <div id="links" class="tab-content">
+    <div class="admin-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h3>Site Links</h3>
+        <button class="btn btn-primary" onclick="newLink()">+ Add Link</button>
+      </div>
+      <div id="links-list">Loading...</div>
+    </div>
+    <div id="link-editor-card" class="admin-card" style="display:none;">
+      <h3 id="link-title">Add Link</h3>
+      <div class="editor-form">
+        <input type="hidden" id="link-id">
+        <label>Name</label>
+        <input type="text" id="link-name" placeholder="e.g. Docs Techwell">
+        <label>URL</label>
+        <input type="url" id="link-url" placeholder="https://...">
+        <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+          <button class="btn btn-primary" onclick="saveLink()">Save</button>
+          <button class="btn btn-outline" onclick="closeEditor('link-editor-card')">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- CMS TAB -->
   <div id="content" class="tab-content">
     <div class="admin-card">
@@ -208,6 +240,7 @@ if (!isset($_SESSION['twiis_admin']) || $_SESSION['twiis_admin'] !== true) {
     else if (tabId === 'team') fetchTeam();
     else if (tabId === 'contacts') fetchContacts();
     else if (tabId === 'ecosystem') fetchClients();
+    else if (tabId === 'links') fetchLinks();
     else if (tabId === 'content') fetchSiteContent();
   }
 
@@ -217,12 +250,12 @@ if (!isset($_SESSION['twiis_admin']) || $_SESSION['twiis_admin'] !== true) {
   async function fetchLeads() {
     const data = await apiFetch('/api/leads.php');
     document.getElementById('leads-list').innerHTML = data.length === 0 ? "No leads." : 
-        `<table><tr><th>Name</th><th>Status</th></tr>` + data.reverse().map(l => `<tr><td>${l.name}</td><td>${l.status}</td></tr>`).join('') + `</table>`;
+        `<table><tr><th>Name</th><th>Status</th></tr>` + data.reverse().map(l => `<tr><td>${l.name}</td><td>${l.status}</td><td><button class='btn btn-primary' onclick='viewLead(${l.id})'>View</button></td></tr>`).join('') + `</table>`;
   }
   async function fetchTickets() {
     const data = await apiFetch('/api/tickets.php');
     document.getElementById('tickets-list').innerHTML = data.length === 0 ? "No tickets." : 
-        `<table><tr><th>ID</th><th>Subject</th></tr>` + data.reverse().map(t => `<tr><td>${t.id}</td><td>${t.description.substring(0, 30)}</td></tr>`).join('') + `</table>`;
+        `<table><tr><th>ID</th><th>Subject</th></tr>` + data.reverse().map(t => `<tr><td>${t.id}</td><td>${t.description.substring(0,30)}...</td><td><button class='btn btn-primary' onclick='viewTicket(${t.id})'>View</button></td></tr>`).join('') + `</table>`;
   }
   async function fetchBlogs() {
     const data = await apiFetch('/api/blogs.php');
@@ -245,12 +278,43 @@ if (!isset($_SESSION['twiis_admin']) || $_SESSION['twiis_admin'] !== true) {
     document.getElementById('team-list').innerHTML = `<table>` + data.map(m => `<tr><td>${m.name}</td><td><button onclick='editMember(${JSON.stringify(m)})'>Edit</button></td></tr>`).join('') + `</table>`;
   }
   function editMember(m) {
-    document.getElementById('member-id').value = m.id;
-    document.getElementById('member-name').value = m.name;
+    document.getElementById('member-id').value = m.id || "";
+    document.getElementById('member-name').value = m.name || "";
+    document.getElementById('member-designation').value = m.designation || "";
+    document.getElementById('member-linkedin').value = m.linkedin || "";
+    document.getElementById('member-hierarchy').value = m.hierarchy || "1";
+    document.getElementById('member-photo').value = ""; 
+    document.getElementById('member-existing-photo').value = m.photo || "";
+    if (m.photo) {
+      document.getElementById('member-photo-preview').src = m.photo;
+      document.getElementById('member-photo-preview').style.display = "block";
+    } else {
+      document.getElementById('member-photo-preview').style.display = "none";
+    }
     document.getElementById('team-editor-card').style.display = "block";
   }
   async function saveMember() {
-    const m = { name: document.getElementById('member-name').value, hierarchy: document.getElementById('member-hierarchy').value };
+    let photoPath = document.getElementById('member-existing-photo').value;
+    const fileInput = document.getElementById('member-photo');
+    if (fileInput.files.length > 0) {
+      const formData = new FormData();
+      formData.append('photo', fileInput.files[0]);
+      const upRes = await fetch('../api/upload-photo.php', { method: 'POST', body: formData }).then(r=>r.json());
+      if (upRes.status === 'success') {
+        photoPath = upRes.path;
+      } else {
+        alert("Photo upload failed: " + upRes.message);
+        return;
+      }
+    }
+
+    const m = {
+      name: document.getElementById('member-name').value,
+      designation: document.getElementById('member-designation').value,
+      linkedin: document.getElementById('member-linkedin').value,
+      hierarchy: document.getElementById('member-hierarchy').value,
+      photo: photoPath
+    };
     if (document.getElementById('member-id').value) m.id = document.getElementById('member-id').value;
     await fetch('../api/save-team.php', { method: 'POST', body: JSON.stringify(m) });
     alert('Saved!'); fetchTeam();
@@ -331,7 +395,18 @@ if (!isset($_SESSION['twiis_admin']) || $_SESSION['twiis_admin'] !== true) {
     }
   }
   function closeEditor(id) { document.getElementById(id).style.display = "none"; }
-  function newMember() { document.getElementById('team-title').innerText = "Add Member"; document.getElementById('team-editor-card').style.display = "block"; }
+  function newMember() { 
+    document.getElementById('team-title').innerText = "Add Member";
+    document.getElementById('member-id').value = "";
+    document.getElementById('member-name').value = "";
+    document.getElementById('member-designation').value = "";
+    document.getElementById('member-linkedin').value = "";
+    document.getElementById('member-hierarchy').value = "1";
+    document.getElementById('member-photo').value = "";
+    document.getElementById('member-existing-photo').value = "";
+    document.getElementById('member-photo-preview').style.display = "none";
+    document.getElementById('team-editor-card').style.display = "block"; 
+  }
   function newBlog() { document.getElementById('editor-title').innerText = "Create Blog"; document.getElementById('blog-editor-card').style.display = "block"; }
   async function fetchSiteContent() {
     const data = await apiFetch('/api/content.php');
@@ -475,7 +550,206 @@ if (!isset($_SESSION['twiis_admin']) || $_SESSION['twiis_admin'] !== true) {
     }
   }
 
+  async function fetchLinks() {
+    const data = await apiFetch('/api/links.php');
+    document.getElementById('links-list').innerHTML = data.length === 0 ? "No links added yet." : 
+        `<table>
+          <tr>
+            <th>Name</th>
+            <th>URL</th>
+            <th>Actions</th>
+          </tr>` + 
+        data.map(l => `
+          <tr>
+            <td><strong>${l.name}</strong></td>
+            <td><a href="${l.url}" target="_blank" style="color: var(--primary); text-decoration: none;">${l.url}</a></td>
+            <td>
+              <button onclick='editLink(${JSON.stringify(l).replace(/'/g, "&apos;")})' style="background: #1f3a5f; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; margin-right: 4px;">Edit</button>
+              <button onclick='deleteLink("${l.id}")' style="background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer;">Delete</button>
+            </td>
+          </tr>`).join('') + `</table>`;
+  }
+
+  function newLink() {
+    document.getElementById('link-title').innerText = "Add Link";
+    document.getElementById('link-id').value = "";
+    document.getElementById('link-name').value = "";
+    document.getElementById('link-url').value = "";
+    document.getElementById('link-editor-card').style.display = "block";
+    document.getElementById('link-editor-card').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function editLink(l) {
+    document.getElementById('link-title').innerText = "Edit Link";
+    document.getElementById('link-id').value = l.id;
+    document.getElementById('link-name').value = l.name;
+    document.getElementById('link-url').value = l.url;
+    document.getElementById('link-editor-card').style.display = "block";
+    document.getElementById('link-editor-card').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  async function saveLink() {
+    const payload = {
+      name: document.getElementById('link-name').value,
+      url: document.getElementById('link-url').value
+    };
+    if (document.getElementById('link-id').value) {
+      payload.id = document.getElementById('link-id').value;
+    }
+    
+    if (!payload.name || !payload.url) {
+      alert("Name and URL are required!");
+      return;
+    }
+
+    try {
+      const res = await fetch('../api/save-link.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const resData = await res.json();
+      if (resData.status === 'success') {
+        alert("Link saved successfully!");
+        closeEditor('link-editor-card');
+        fetchLinks();
+      } else {
+        alert('Error: ' + resData.message);
+      }
+    } catch (e) {
+      alert('Save failed.');
+    }
+  }
+
+  async function deleteLink(id) {
+    if (!confirm('Are you sure you want to delete this link?')) return;
+    try {
+      const res = await fetch('../api/delete-link.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id })
+      });
+      const resData = await res.json();
+      if (resData.status === 'success') {
+        alert("Link deleted!");
+        fetchLinks();
+      } else {
+        alert('Error: ' + resData.message);
+      }
+    } catch (e) {
+      alert('Delete failed.');
+    }
+  }
+
   fetchLeads();
+function viewTicket(id) {
+  apiFetch(`/api/get-ticket.php?id=${id}`).then(res => {
+    if(res.status !== 'success') { alert(res.message); return; }
+    const t = res.ticket;
+    document.querySelector('.modal-title').innerText = `Ticket #${t.id}`;
+    let html = `<div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; margin-bottom:1rem; font-size:0.9rem;">
+      <div><strong>Email:</strong> ${t.email || '-'}</div>
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <strong>Status:</strong>
+        <select id="entity-status" onchange="updateStatus(${t.id}, 'ticket')" style="padding:0.2rem; border-radius:4px;">
+          <option value="Open" ${t.status==='Open'?'selected':''}>Open</option>
+          <option value="In Progress" ${t.status==='In Progress'?'selected':''}>In Progress</option>
+          <option value="Resolved" ${t.status==='Resolved'?'selected':''}>Resolved</option>
+          <option value="Closed" ${t.status==='Closed'?'selected':''}>Closed</option>
+        </select>
+      </div>
+      <div><strong>Source:</strong> ${t.source || '-'}</div>
+      <div><strong>Date:</strong> ${t.timestamp || '-'}</div>
+    </div>
+    <div style="background:#f8fafc; padding:1rem; border-radius:6px; border:1px solid #e2e8f0; margin-bottom:1rem;">
+      <p style="margin-top:0;"><strong>Subject:</strong> ${t.subject}</p>
+      <p style="margin-bottom:0; white-space:pre-wrap;"><strong>Description:</strong><br>${t.description}</p>
+    </div>
+    <h4 style="margin-bottom:0.5rem; color:#1f3a5f;">Internal Notes</h4>
+    <div id="entity-replies" style="margin-bottom:1rem; max-height:150px; overflow-y:auto; font-size:0.85rem; border:1px solid #eee; padding:0.5rem; border-radius:4px; background:#fafafa;">
+      ${t.responses && t.responses.length > 0 ? t.responses.map(r => `<div style="margin-bottom:0.5rem; border-bottom:1px solid #ddd; padding-bottom:0.5rem;"><strong>Admin</strong> <span style="color:#888; font-size:0.8rem;">(${r.created_at})</span><br>${r.message}</div>`).join('') : '<span style="color:#aaa;">No notes yet.</span>'}
+    </div>
+    <textarea id="entity-reply-text" rows="2" style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px;" placeholder="Add an internal note..."></textarea>
+    <button class="btn btn-primary" style="margin-top:0.5rem; padding:0.4rem 1rem;" onclick="submitReply(${t.id}, 'ticket')">Save Note</button>`;
+    document.querySelector('.modal-body').innerHTML = html;
+    document.getElementById('detail-modal').style.display = 'flex';
+  });
+}
+
+function viewLead(id) {
+  apiFetch(`/api/get-lead.php?id=${id}`).then(res => {
+    if(res.status !== 'success') { alert(res.message); return; }
+    const l = res.lead;
+    document.querySelector('.modal-title').innerText = `Lead: ${l.name}`;
+    let html = `<div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; margin-bottom:1rem; font-size:0.9rem;">
+      <div><strong>Email:</strong> <a href="mailto:${l.email || ''}">${l.email || '-'}</a></div>
+      <div><strong>Phone:</strong> <a href="tel:${l.phone || ''}">${l.phone || '-'}</a></div>
+      <div><strong>Company:</strong> ${l.company || '-'}</div>
+      <div><strong>Service:</strong> ${l.service || '-'}</div>
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <strong>Status:</strong>
+        <select id="entity-status" onchange="updateStatus(${l.id}, 'lead')" style="padding:0.2rem; border-radius:4px;">
+          <option value="New" ${l.status==='New'?'selected':''}>New</option>
+          <option value="Contacted" ${l.status==='Contacted'?'selected':''}>Contacted</option>
+          <option value="In Progress" ${l.status==='In Progress'?'selected':''}>In Progress</option>
+          <option value="Closed" ${l.status==='Closed'?'selected':''}>Closed</option>
+        </select>
+      </div>
+      <div><strong>Date:</strong> ${l.timestamp || '-'}</div>
+      <div style="grid-column: span 2;"><strong>Source:</strong> ${l.source || '-'}</div>
+    </div>
+    <div style="background:#f8fafc; padding:1rem; border-radius:6px; border:1px solid #e2e8f0; margin-bottom:1rem;">
+      <p style="margin:0; white-space:pre-wrap;"><strong>Message:</strong><br>${l.message || 'No message provided.'}</p>
+    </div>
+    <h4 style="margin-bottom:0.5rem; color:#1f3a5f;">Internal Notes</h4>
+    <div id="entity-replies" style="margin-bottom:1rem; max-height:150px; overflow-y:auto; font-size:0.85rem; border:1px solid #eee; padding:0.5rem; border-radius:4px; background:#fafafa;">
+      ${l.responses && l.responses.length > 0 ? l.responses.map(r => `<div style="margin-bottom:0.5rem; border-bottom:1px solid #ddd; padding-bottom:0.5rem;"><strong>Admin</strong> <span style="color:#888; font-size:0.8rem;">(${r.created_at})</span><br>${r.message}</div>`).join('') : '<span style="color:#aaa;">No notes yet.</span>'}
+    </div>
+    <textarea id="entity-reply-text" rows="2" style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px;" placeholder="Add an internal note..."></textarea>
+    <button class="btn btn-primary" style="margin-top:0.5rem; padding:0.4rem 1rem;" onclick="submitReply(${l.id}, 'lead')">Save Note</button>`;
+    document.querySelector('.modal-body').innerHTML = html;
+    document.getElementById('detail-modal').style.display = 'flex';
+  });
+}
+
+async function submitReply(id, type) {
+  const reply = document.getElementById('entity-reply-text').value;
+  if (!reply) return;
+  const res = await fetch('../api/respond-ticket.php', { 
+    method: 'POST', 
+    body: JSON.stringify({entity_id: id, entity_type: type, message: reply}), 
+    headers: {'Content-Type': 'application/json'} 
+  }).then(r=>r.json());
+  if (res.status === 'success') { 
+    alert('Note saved!'); 
+    type === 'lead' ? viewLead(id) : viewTicket(id);
+  }
+  else alert('Failed: ' + res.message);
+}
+
+async function updateStatus(id, type) {
+  const newStatus = document.getElementById('entity-status').value;
+  const res = await fetch('../api/update-status.php', { 
+    method: 'POST', 
+    body: JSON.stringify({entity_id: id, entity_type: type, status: newStatus}), 
+    headers: {'Content-Type': 'application/json'} 
+  }).then(r=>r.json());
+  if (res.status === 'success') {
+    type === 'lead' ? fetchLeads() : fetchTickets();
+  } else {
+    alert('Failed to update status: ' + res.message);
+  }
+}
+function closeModal() {
+  document.getElementById('detail-modal').style.display = 'none';
+}
 </script>
+<div id="detail-modal" class="modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+  <div class="modal-content" style="background:#fff;padding:20px;border-radius:8px;max-width:500px;width:90%;">
+    <h3 class="modal-title"></h3>
+    <div class="modal-body"></div>
+    <button class="btn btn-outline" onclick="closeModal()" style="margin-top:10px;">Close</button>
+  </div>
+</div>
 </body>
 </html>

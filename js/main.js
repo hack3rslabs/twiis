@@ -4,9 +4,8 @@ class SiteHeader extends HTMLElement {
     this.innerHTML = `
     <nav id="navbar">
       <div class="container">
-        <a href="/" class="logo-brand">
-          <div class="logo-icon">T</div>
-          Twiis
+        <a href="/" class="logo-brand" style="display:flex; align-items:center;">
+          <img src="/images/logo.svg" alt="Twiis Logo" style="height: 50px; width: auto; border-radius: 8px;">
         </a>
         <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
           <span></span><span></span><span></span>
@@ -16,15 +15,18 @@ class SiteHeader extends HTMLElement {
           <li class="dropdown">
             <a href="/services" class="drop-trigger">Services <i class="fas fa-chevron-down"></i></a>
             <ul class="dropdown-menu">
-              <li><a href="/services/it-solutions">IT Solutions & Support</a></li>
+              <li style="padding:0.3rem 1rem;font-weight:700;font-size:0.75rem;color:var(--secondary);text-transform:uppercase;letter-spacing:0.05em;">Cyber Security</li>
+              <li><a href="/services/email-security">Email Security</a></li>
+              <li><a href="/services/cloud-security">Cloud Security</a></li>
+              <li><a href="/services/network-security">Network Security</a></li>
+              <li><a href="/services/endpoint-defense">Endpoint Defense</a></li>
+              <li><a href="/services/app-security">Application Security</a></li>
+              <li><a href="/services/vapt">VAPT & Pentesting</a></li>
+              <li style="padding:0.3rem 1rem;font-weight:700;font-size:0.75rem;color:var(--secondary);text-transform:uppercase;letter-spacing:0.05em;border-top:1px solid var(--border);margin-top:0.3rem;padding-top:0.6rem;">IT Solutions</li>
+              <li><a href="/services/it-solutions">IT Support & Infra</a></li>
+              <li style="padding:0.3rem 1rem;font-weight:700;font-size:0.75rem;color:var(--secondary);text-transform:uppercase;letter-spacing:0.05em;border-top:1px solid var(--border);margin-top:0.3rem;padding-top:0.6rem;">Software Solutions</li>
               <li><a href="/services/software-development">Software Development</a></li>
               <li><a href="/services/web-development">Web Development</a></li>
-              <li><a href="/services/devops-devsecops">DevOps & DevSecOps</a></li>
-              <li><a href="/services/qa-testing">QA & Testing</a></li>
-              <li><a href="/services/managed-hosting">Managed Hosting</a></li>
-              <li><a href="/services/app-security">App Security</a></li>
-              <li><a href="/services/vapt">VAPT & Pentesting</a></li>
-              <li><a href="/services/cloud-security">Cloud Security</a></li>
             </ul>
           </li>
           <li class="dropdown">
@@ -59,9 +61,8 @@ class SiteFooter extends HTMLElement {
       <div class="container">
         <div class="footer-grid">
           <div class="footer-brand">
-            <a href="/" class="logo-brand">
-              <div class="logo-icon">T</div>
-              Twiis
+            <a href="/" class="logo-brand" style="display:flex; align-items:center; margin-bottom: 1rem;">
+              <img src="/images/logo.svg" alt="Twiis Logo" style="height: 50px; width: auto; border-radius: 8px;">
             </a>
             <p>Securing the future of global enterprises through elite <strong>SaaS innovation</strong> and <strong>cybersecurity resilience</strong>.</p>
             <div class="footer-social">
@@ -72,11 +73,11 @@ class SiteFooter extends HTMLElement {
           <div class="footer-links">
             <h4>Our Services</h4>
             <ul>
+              <li><a href="/services">Cyber Security</a></li>
               <li><a href="/services/it-solutions">IT Solutions</a></li>
               <li><a href="/services/software-development">Software Development</a></li>
-              <li><a href="/services/app-security">App Security</a></li>
+              <li><a href="/services/web-development">Web Development</a></li>
               <li><a href="/services/vapt">AI-Guided VAPT</a></li>
-              <li><a href="/services/cloud-security">Cloud Security</a></li>
               <li><a href="/services/endpoint-defense">Endpoint Defense</a></li>
             </ul>
           </div>

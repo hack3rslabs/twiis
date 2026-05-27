@@ -41,6 +41,7 @@ try {
         source TEXT,
         timestamp TEXT
     )");
+$pdo->exec("CREATE TABLE IF NOT EXISTS responses (id INTEGER PRIMARY KEY AUTOINCREMENT, entity_id INTEGER NOT NULL, entity_type TEXT NOT NULL, admin_id INTEGER NOT NULL, message TEXT NOT NULL, created_at TEXT DEFAULT (datetime('now')));");
 
     // Create Clients table
     $pdo->exec("CREATE TABLE IF NOT EXISTS clients (

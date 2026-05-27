@@ -14,16 +14,18 @@
 <canvas id="canvas-bg"></canvas>
 <site-header></site-header>
 
-<section class="page-hero">
-  <div class="container">
+<section class="page-hero white-hero">
+  <div class="glow-blob" style="top: -100px; right: -100px;"></div>
+  <div class="glow-blob" style="bottom: -100px; left: -100px; background: radial-gradient(circle, rgba(31, 122, 92, 0.12) 0%, rgba(255, 255, 255, 0) 70%);"></div>
+  <div class="container" style="position: relative; z-index: 2;">
     <div class="page-hero-grid">
-      <div class="reveal">
-        <h1>Our <span class="gradient-text">Professional Services</span></h1>
-        <p>A comprehensive suite of high-performance software engineering, cybersecurity, and infrastructure support tailored for the modern enterprise.</p>
+      <div class="reveal hero-glass-card">
+        <h1 style="font-size:3rem; margin-bottom:1rem;">Our <span class="gradient-text">Professional Services</span></h1>
+        <p style="font-size:1.15rem; color:var(--text-muted); margin-bottom:2rem;">A comprehensive suite of high-performance software engineering, cybersecurity, and infrastructure support tailored for the modern enterprise.</p>
         <a href="/contact" class="btn btn-primary">Request a Scoping Call</a>
       </div>
-      <div class="page-hero-img reveal">
-        <img src="https://images.unsplash.com/photo-1573164713714-d72e4c023d49?auto=format&fit=crop&q=80&w=800" alt="Corporate Professional Services">
+      <div class="page-hero-img reveal floating-element" style="position:relative; right:0; display:flex; justify-content:center; align-items:center; height:100%;">
+        <img src="/images/services-hero.png" alt="Services" >
       </div>
     </div>
   </div>
@@ -32,64 +34,101 @@
 <section>
   <div class="container">
     <div class="section-title reveal">
-      <h2>Engineering & Security Domains</h2>
-      <p>Driving operational excellence through secure-by-design methodologies.</p>
+      <h2><span class="gradient-text">Cyber Security</span></h2>
+      <p>Comprehensive defense architectures protecting your most critical digital assets.</p>
     </div>
-    
     <div class="features-grid">
-      <!-- 1 -->
-      <a href="/services/it-solutions" class="feature-card reveal">
-        <i class="fas fa-server"></i>
-        <h4>Enterprise IT Solutions</h4>
-        <p>Proactive infrastructure management and 24/7 remote support ensuring 99.9% uptime.</p>
+      <a href="/services/email-security" class="feature-card reveal">
+        <i class="fas fa-envelope"></i>
+        <h4>Email Security</h4>
+        <p>Advanced threat protection to secure enterprise communications from phishing and malware.</p>
       </a>
-      <!-- 2 -->
-      <a href="/services/software-development" class="feature-card reveal">
-        <i class="fas fa-code"></i>
-        <h4>Secure Software Development</h4>
-        <p>Enterprise SaaS, ERP, and API architecture built with security-first engineering principles.</p>
+      <a href="/services/cloud-security" class="feature-card reveal">
+        <i class="fas fa-cloud"></i>
+        <h4>Cloud Security</h4>
+        <p>Continuous compliance monitoring and AI-powered misconfiguration detection.</p>
       </a>
-      <!-- 3 -->
-      <a href="/services/web-development" class="feature-card reveal">
-        <i class="fas fa-globe"></i>
-        <h4>Web Development</h4>
-        <p>High-performance, scalable, and responsive web applications designed for conversion and security.</p>
+      <a href="/services/network-security" class="feature-card reveal">
+        <i class="fas fa-network-wired"></i>
+        <h4>Network Security</h4>
+        <p>Deep packet inspection and zero-trust routing to secure data in transit.</p>
       </a>
-      <!-- 4 -->
-      <a href="/services/devops-devsecops" class="feature-card reveal">
-        <i class="fas fa-infinity"></i>
-        <h4>DevOps & DevSecOps</h4>
-        <p>Automated CI/CD pipelines with integrated security checks for rapid, safe deployment.</p>
+      <a href="/services/endpoint-defense" class="feature-card reveal">
+        <i class="fas fa-laptop-code"></i>
+        <h4>Endpoint Defense</h4>
+        <p>Next-gen antivirus and behavioral analysis to stop threats at the device level.</p>
       </a>
-      <!-- 5 -->
-      <a href="/services/qa-testing" class="feature-card reveal">
-        <i class="fas fa-vial"></i>
-        <h4>QA & Software Testing</h4>
-        <p>Rigorous, test-oriented quality assurance to ensure bug-free, performant software delivery.</p>
-      </a>
-      <!-- 6 -->
-      <a href="/services/managed-hosting" class="feature-card reveal">
-        <i class="fas fa-database"></i>
-        <h4>Managed Hosting</h4>
-        <p>Secure, high-uptime cloud hosting environments optimized for speed and resilience.</p>
-      </a>
-      <!-- 7 -->
       <a href="/services/app-security" class="feature-card reveal">
         <i class="fas fa-mobile-alt"></i>
-        <h4>App Security Auditing</h4>
-        <p>AI-driven DevSecOps integration and continuous vulnerability scanning across your SDLC.</p>
+        <h4>Application Security</h4>
+        <p>Continuous vulnerability scanning and DevSecOps integration across your SDLC.</p>
       </a>
-      <!-- 8 -->
       <a href="/services/vapt" class="feature-card reveal">
         <i class="fas fa-search"></i>
         <h4>AI-Guided VAPT</h4>
-        <p>Combining expert human intelligence with advanced penetration testing for deeper threat discovery.</p>
+        <p>Expert human intelligence combined with advanced penetration testing.</p>
       </a>
-      <!-- 9 -->
-      <a href="/services/cloud-security" class="feature-card reveal">
-        <i class="fas fa-cloud"></i>
-        <h4>Cloud Posture Management</h4>
-        <p>Continuous compliance monitoring and AI-powered misconfiguration detection.</p>
+    </div>
+  </div>
+</section>
+
+<section class="global-section">
+  <div class="container">
+    <div class="section-title reveal">
+      <h2 style="color:#fff;">IT Solutions</h2>
+      <p>Elite infrastructure support and proactive remote administration.</p>
+    </div>
+    <div class="features-grid">
+      <a href="/services/it-solutions" class="feature-card reveal">
+        <i class="fas fa-headset"></i>
+        <h4>IT Support</h4>
+        <p>24/7 technical assistance and rapid-response resolution for enterprise users.</p>
+      </a>
+      <a href="/services/it-solutions" class="feature-card reveal">
+        <i class="fas fa-server"></i>
+        <h4>Infra Support</h4>
+        <p>Full-lifecycle administration of on-prem, cloud, and hybrid environments.</p>
+      </a>
+      <a href="#" class="feature-card reveal">
+        <i class="fas fa-boxes"></i>
+        <h4>Asset Management</h4>
+        <p>Streamlined tracking, lifecycle planning, and optimization of IT hardware and software.</p>
+      </a>
+      <a href="#" class="feature-card reveal">
+        <i class="fas fa-tools"></i>
+        <h4>Installation and AMC</h4>
+        <p>Professional deployment and Annual Maintenance Contracts for continuous uptime.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title reveal">
+      <h2><span class="gradient-text">Software Solutions</span></h2>
+      <p>Secure-by-design software engineering tailored to your operational needs.</p>
+    </div>
+    <div class="features-grid">
+      <a href="/services/software-development" class="feature-card reveal">
+        <i class="fas fa-code"></i>
+        <h4>Software Development</h4>
+        <p>Enterprise SaaS, ERP, and API architecture built with security-first principles.</p>
+      </a>
+      <a href="/services/web-development" class="feature-card reveal">
+        <i class="fas fa-globe"></i>
+        <h4>Web Development</h4>
+        <p>High-performance, scalable, and responsive web applications designed for conversion.</p>
+      </a>
+      <a href="#" class="feature-card reveal">
+        <i class="fas fa-layer-group"></i>
+        <h4>Customised Applications</h4>
+        <p>Bespoke software platforms built exactly to your corporate specifications.</p>
+      </a>
+      <a href="/products" class="feature-card reveal">
+        <i class="fas fa-briefcase"></i>
+        <h4>ERP Software Prime Core</h4>
+        <p>Unified enterprise resource planning for billing, CRM, and operational management.</p>
       </a>
     </div>
   </div>

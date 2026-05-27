@@ -9,6 +9,13 @@ if (!$data) {
     exit;
 }
 
+// Sanitize inputs
+foreach ($data as $key => $value) {
+    if (is_string($value)) {
+        $data[$key] = htmlspecialchars(strip_tags($value));
+    }
+}
+
 $file = '../data/contacts.json';
 $current_data = [];
 

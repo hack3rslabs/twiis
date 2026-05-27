@@ -246,22 +246,28 @@
     const data = Object.fromEntries(formData.entries());
 
     try {
+      const csrfRes = await fetch('/api/csrf.php').then(r => r.json());
+      if(csrfRes.csrf_token) data.csrf_token = csrfRes.csrf_token;
+
       const res = await fetch('/api/submit-lead.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
       });
 
-      if (res.ok) {
+      const resData = await res.json();
+      if (res.ok && resData.status === 'success') {
         form.innerHTML = `<div style="text-align:center; padding:3rem 0;">
           <i class="fas fa-check-circle" style="font-size:4rem; color:var(--secondary); margin-bottom:1.5rem;"></i>
           <h2>Request Received</h2>
           <p style="color:var(--text-muted);">Our engineering team will contact you shortly to discuss your scoping requirements.</p>
         </div>`;
+      } else {
+        throw new Error(resData.message || 'Server error');
       }
     } catch (err) {
       console.error(err);
-      alert('Transmission failed. Please email help@twiis.in');
+      alert('Error: ' + err.message);
       btn.disabled = false;
       btn.innerText = "Initialize Secure Request";
     }

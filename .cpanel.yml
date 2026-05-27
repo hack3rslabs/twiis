@@ -4,5 +4,5 @@ deployment:
     # ⚠️ IMPORTANT: Change "your_cpanel_username" to your actual cPanel username
     - export DEPLOYPATH=/home/your_cpanel_username/public_html/
     
-    # This copies everything inside the 'dist' folder directly to public_html
-    - /bin/cp -a dist/. $DEPLOYPATH
+    # This copies everything inside the root folder directly to public_html
+    - /bin/cp -R * $DEPLOYPATH

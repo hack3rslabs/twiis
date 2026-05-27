@@ -4,6 +4,15 @@
 
 Options -Indexes
 
+# ── Block Restricted Files & Directories ───────────────────────
+<FilesMatch "^(router\.php|start\.bat)$">
+    Require all denied
+</FilesMatch>
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^data/ - [F,L]
+</IfModule>
+
 # ── Security Headers ─────────────────────────────────────────
 <IfModule mod_headers.c>
     Header set X-Frame-Options "SAMEORIGIN"
